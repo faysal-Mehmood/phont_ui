@@ -1,0 +1,14 @@
+@import "mixins";
+@import "responsive";
+@import "auth";
+body {
+  background: #000000 0% 0% no-repeat padding-box;
+  color: white;
+}
+h1,
+h2,
+h3,
+h4,
+p {
+  padding: 0;
+}

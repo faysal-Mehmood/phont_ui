@@ -1,0 +1,108 @@
+.auth-wrapper {
+  position: relative;
+  max-width: 1080px;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .auth-left-image {
+    width: 50%;
+    border-radius: 20px;
+    background: linear-gradient(rgb(89 77 77), rgba(0, 0, 0, 0.463));
+  }
+  .form-wrapper {
+    position: absolute;
+    right: -379px;
+    width: 44%;
+    min-height: 600px;
+    background: #150f1e 0% 0% no-repeat padding-box;
+    border-radius: 20px;
+    opacity: 1;
+    backdrop-filter: blur(50px);
+    -webkit-backdrop-filter: blur(50px);
+    padding: 41px 59px 73px 59px;
+    .auth-tabs {
+      display: flex;
+      gap: 28px;
+      margin-bottom: 90px;
+      .button-tab {
+        cursor: pointer;
+        h3 {
+          font-size: 20px;
+          color: #655095;
+          padding-bottom: 4px;
+        }
+        .active-tab {
+          border-bottom: 2px solid #fff;
+          color: #fff;
+        }
+      }
+    }
+    form {
+      .inputWrapper {
+        margin-bottom: 40px;
+        position: relative;
+        .inputBox {
+          color: #ffffff;
+          width: 100%;
+          padding: 0.5rem;
+          border: none;
+          background-color: transparent;
+          outline: none;
+          transition: border-color 0.3s ease;
+          border-bottom: 1px solid #ffffff;
+          padding-left: 0px;
+          font-size: 20px;
+        }
+        .inputBox:focus {
+          border-bottom-color: #cccccc;
+        }
+        .inputBox::placeholder {
+          font-size: 20px;
+          color: #655095;
+        }
+        .show-password {
+          position: absolute;
+          cursor: pointer;
+          top: 10px;
+          right: 10px;
+        }
+        .forget-paswword {
+          display: flex;
+          justify-content: space-between;
+          p {
+            color: #655095;
+            font-size: 14px;
+            cursor: pointer;
+            &.error {
+              color: red;
+            }
+          }
+        }
+        .error {
+          color: red;
+          font-size: 14px;
+        }
+      }
+      .submit-btn {
+        cursor: pointer;
+        background-color: #d2beff;
+        padding: 1.25rem 3rem;
+        font-size: 1rem;
+        font-weight: 600;
+        border: none;
+        border-radius: 1.25rem;
+        transition: background-color 0.3s ease, color 0.3s ease;
+        outline: none;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 30px;
+        margin: auto;
+        // margin-top: 92px;
+        color: #000000;
+      }
+    }
+  }
+}
