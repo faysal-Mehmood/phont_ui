@@ -1,0 +1,69 @@
+{
+  "webLogo": "/images/Phont_Logo_Weiss.svg",
+  "links": [
+    {
+      "name": "Basics",
+      "url": "/",
+      "icon": "../images/sideBarIcons/subtitles.svg"
+    },
+    {
+      "name": "Transcription",
+      "url": "/",
+      "icon": ""
+    },
+    {
+      "name": "Translation",
+      "url": "/",
+      "icon": ""
+    },
+    {
+      "name": "Speaker",
+      "url": "/",
+      "icon": ""
+    },
+    {
+      "name": "Phonetics",
+      "url": "/",
+      "icon": ""
+    },
+    {
+      "name": "Emotion",
+      "url": "/",
+      "icon": ""
+    },
+    {
+      "name": "Noise",
+      "url": "/",
+      "icon": ""
+    },
+    {
+      "name": "Music",
+      "url": "/",
+      "icon": ""
+    },
+    {
+      "name": "Video",
+      "url": "/",
+      "icon": ""
+    },
+    {
+      "name": "Accessibility",
+      "url": "/",
+      "icon": ""
+    }
+  ],
+  "userAbout": [
+    {
+      "url": "/",
+      "icon": ""
+    },
+    {
+      "url": "/",
+      "icon": ""
+    },
+    {
+      "url": "/",
+      "icon": ""
+    }
+  ]
+}
