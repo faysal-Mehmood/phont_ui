@@ -76,7 +76,7 @@ const SignUpForm = () => {
           </div>
           <div className="inputWrapper">
             <Field
-              type="password"
+              type={password ? "text" : "password"}
               id="password"
               name="password"
               placeholder="Password"
@@ -103,7 +103,7 @@ const SignUpForm = () => {
           </div>
           <div className="inputWrapper">
             <Field
-              type="password"
+              type={confirmPassword ? "text" : "password"}
               id="confirmPassword"
               name="confirmPassword"
               placeholder="Confirm Password"
