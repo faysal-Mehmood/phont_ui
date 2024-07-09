@@ -14,7 +14,7 @@ export default function Home() {
             src="/images/xd.jpg"
             alt="left iamge"
             width={730}
-            height={715}
+            height={714}
           />
         </div>
         <div className='form-wrapper'>

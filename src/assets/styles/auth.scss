@@ -14,10 +14,10 @@
     height: 100%;
     background-size: cover;
     background-position: center;
-    z-index: -1; /* Send the background behind other content */
-    object-fit: cover; /* Ensure the image covers the container */
-    border-radius: inherit; /* Inherit border radius from the container */
-    background: linear-gradient(rgb(89 77 77), rgba(0, 0, 0, 0.463));
+    z-index: -1; 
+    object-fit: cover;
+    border-radius: inherit; 
+
   }
   .form-wrapper {
     position: absolute;
@@ -25,7 +25,7 @@
     left: 991px;
     width: 509px;
     min-height: 600px;
-    z-index: 1; /* Ensure form is above background */
+    z-index: 1; 
     background: #150f1e 0% 0% no-repeat padding-box;
     border-radius: 20px;
     opacity: 1;
@@ -118,7 +118,6 @@
         align-items: center;
         height: 30px;
         margin: auto;
-        // margin-top: 92px;
         color: #000000;
       }
     }
