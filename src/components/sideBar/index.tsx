@@ -3,14 +3,19 @@ import React from "react";
 import { Avatar, Box, Typography } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 import { SideBarData } from "@/dats/sidebar";
 
 import styles from "./sidebar.module.scss";
 
 const SideBar = () => {
+  const pathname = usePathname();
+
   return (
-    <Box className={styles.SidebarMainBox}>
+    <Box
+      className={styles.SidebarMainBox}
+      display={pathname === "/" ? "none" : "block"}>
       <Box className={styles.SidebarBox}>
         <Box>
           <Image
@@ -23,12 +28,12 @@ const SideBar = () => {
 
           <Box className={styles.SideBarMenu}>
             {SideBarData?.links?.map((item, index) => (
-              <Box key={index} className={styles.MenuItem}>
+              <Link href={item.url} key={index} className={styles.MenuItem}>
                 {item.icon}
-                <Typography variant='h6' fontWeight={400} color={"#fff"}>
+                <Typography variant='h6' fontWeight={400}>
                   {item.name}
                 </Typography>
-              </Box>
+              </Link>
             ))}
           </Box>
         </Box>

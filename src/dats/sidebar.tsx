@@ -17,7 +17,7 @@ export const SideBarData = {
   links: [
     {
       name: "Basics",
-      url: "/",
+      url: "/basics",
       icon: <SubtitlesOutlinedIcon />,
     },
     {
