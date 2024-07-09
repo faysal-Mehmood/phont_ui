@@ -11,10 +11,10 @@ export default function Home() {
       <div className='auth-wrapper'>
         <div className='auth-left-image'>
           <Image
-            src='/images/xd.jpg'
-            alt='left iamge'
+            src="/images/xd.jpg"
+            alt="left iamge"
             width={730}
-            height={714}
+            height={715}
           />
         </div>
         <div className='form-wrapper'>
