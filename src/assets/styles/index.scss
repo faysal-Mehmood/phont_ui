@@ -2,6 +2,10 @@
 @import "responsive";
 @import "auth";
 body {
+  width: 1920px;
+  height: 1080px;
+  top: 0;
+  left: 0;
   background: #000000 0% 0% no-repeat padding-box;
   color: white;
 }
