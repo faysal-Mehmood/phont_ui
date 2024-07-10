@@ -3,8 +3,6 @@ import React, { createContext, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import Image from "next/image";
-import img from "../../assets/images/xd.jpg";
-import Link from "next/link";
 import axios from "axios";
 
 const MyContext = createContext(null);
