@@ -14,23 +14,24 @@
     height: 100%;
     background-size: cover;
     background-position: center;
-    z-index: -1; 
+    z-index: -1;
     object-fit: cover;
-    border-radius: inherit; 
-
+    border-radius: inherit;
+    img {
+      border-top-left-radius: 20px;
+      border-bottom-left-radius: 20px;
+    }
   }
   .form-wrapper {
     position: absolute;
     top: 240px;
     left: 991px;
     width: 509px;
+    max-height: 600px;
     min-height: 600px;
-    z-index: 1; 
+    z-index: 1;
     background: #150f1e 0% 0% no-repeat padding-box;
     border-radius: 20px;
-    opacity: 1;
-    backdrop-filter: blur(50px);
-    -webkit-backdrop-filter: blur(50px);
     padding: 41px 59px 73px 59px;
     .auth-tabs {
       display: flex;
@@ -55,7 +56,7 @@
     }
     form {
       .inputWrapper {
-        margin-bottom: 40px;
+        padding-bottom: 24px;
         position: relative;
         .inputBox {
           color: #ffffff;
@@ -68,7 +69,6 @@
           border-bottom: 1px solid #ffffff;
           padding-left: 0px;
           font-size: 20px;
-          
         }
         .inputBox:focus {
           border-bottom-color: #cccccc;
@@ -98,6 +98,7 @@
           }
         }
         .error {
+          padding-top: 10px;
           color: red;
           font-size: 14px;
         }

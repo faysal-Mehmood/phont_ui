@@ -1,8 +1,8 @@
 "use client";
 import Image from "next/image";
 import { useState } from "react";
-import LoginForm from "@/components/login";
-import SignUpForm from "@/components/signup";
+import LoginForm from "@/components/screen/login";
+import SignUpForm from "@/components/screen/signup";
 import ProjectOverviewModel from "@/components/projectOverviewModel";
 
 export default function Home() {
@@ -12,10 +12,10 @@ export default function Home() {
       <div className="auth-wrapper">
         <div className="auth-left-image">
           <Image
-            src="/images/xd.jpg"
+            src="/images/UX_Picture.jpg"
             alt="left iamge"
             width={730}
-            height={714}
+            height={598}
           />
         </div>
         <div className="form-wrapper">
