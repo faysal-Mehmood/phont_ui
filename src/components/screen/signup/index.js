@@ -1,9 +1,11 @@
 "use client";
 import React, { createContext, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
+
 import * as Yup from "yup";
 import Image from "next/image";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const MyContext = createContext(null);
 
@@ -19,7 +21,7 @@ const SignUpSchema = Yup.object().shape({
     .required("Confirm Password is required"),
 });
 
-const SignUpForm = () => {
+const SignUpForm = ({ setActiveTab }) => {
   const [password, setpassword] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState(false);
   const onSubmit = async (values, { setSubmitting }) => {
@@ -34,6 +36,12 @@ const SignUpForm = () => {
         }
       );
       console.log(response.data);
+      if (response?.data?.success) {
+        setActiveTab("login");
+        toast.success(response?.data?.message);
+      } else {
+        toast.error(response?.data?.message);
+      }
     } catch (error) {
       console.error("Error:", error);
     }

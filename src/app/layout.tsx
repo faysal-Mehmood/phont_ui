@@ -4,8 +4,10 @@ import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import { ThemeProvider } from "@mui/material/styles";
 import { StoreProvider } from "@/store/StoreProvider";
 import theme from "../theme";
+import "react-toastify/dist/ReactToastify.css";
 import "../assets/styles/index.scss";
 import SideBar from "@/components/sideBar";
+import { ToastContainer } from "react-toastify";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,6 +28,18 @@ export default function RootLayout({
           <SideBar />
           <AppRouterCacheProvider>
             <ThemeProvider theme={theme}>{children} </ThemeProvider>
+            <ToastContainer
+              position="bottom-right"
+              autoClose={5000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="light"
+            />
           </AppRouterCacheProvider>
         </body>
       </html>

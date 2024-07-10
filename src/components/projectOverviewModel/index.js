@@ -1,3 +1,4 @@
+"use client";
 import * as React from "react";
 // import Button from "@mui/material/Button";
 import Button from "@/utils/button/Button";
@@ -11,11 +12,60 @@ import Image from "next/image";
 import { Avatar, Box, Card, Typography } from "@mui/material";
 import { SideBarData } from "@/dats/sidebar";
 import Link from "next/link";
+import axios from "axios";
+// import { getAllProjectDetails } from "@/store/action/project";
 
 export default function ProjectOverviewModel({ setOpenModel, openModel }) {
+  const [allProjects, setAllProjects] = React.useState([]);
   const handleClose = () => {
     setOpenModel(false);
   };
+  const createProject = async () => {
+    try {
+      const auth_token = localStorage.getItem("auth_token");
+      const response = await axios.post(
+        "http://20.218.120.21:8000/api/project",
+        { name: "project 123456" },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${auth_token}`,
+          },
+        }
+      );
+      console.log(response.data);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+  const getAllProjectDetails = async () => {
+    try {
+      const auth_token = localStorage.getItem("auth_token");
+      const response = await axios.get(
+        "http://20.218.120.21:8000/api/project",
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${auth_token}`,
+          },
+        }
+      );
+      if (response.data?.success) {
+        setAllProjects(response?.data?.data);
+      }
+
+      console.log(response.data);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+  React.useEffect(() => {
+    if (openModel) {
+      getAllProjectDetails();
+    }
+  }, [openModel]);
 
   return (
     <React.Fragment>
@@ -44,7 +94,9 @@ export default function ProjectOverviewModel({ setOpenModel, openModel }) {
               <Button variant="primary">Create</Button>
             </div>
             <Box className={styles.ProfileSettingIcons}>
-              <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+              <div onClick={createProject}>
+                <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+              </div>
               {SideBarData?.userAbout?.map((item, index) => (
                 <Link key={index} href={item.url}>
                   {item.icon}
@@ -62,8 +114,8 @@ export default function ProjectOverviewModel({ setOpenModel, openModel }) {
               !Welcome Back
             </Typography>
             <div className={styles.ProjectBoxWrapper}>
-              {[0, 1, 2, 3]?.map((item) => (
-                <div className={styles.ProjectDetailCard}>
+              {allProjects?.map((item, index) => (
+                <div key={index} className={styles.ProjectDetailCard}>
                   <div className={styles.ProjectBox}></div>
                   <div className={styles.ProjectDescriptionpanel}>
                     <Typography
@@ -73,7 +125,7 @@ export default function ProjectOverviewModel({ setOpenModel, openModel }) {
                       color={"#fff"}
                       marginBottom={"13px"}
                     >
-                      Project Name
+                      {item?.name}
                     </Typography>
                     <div>
                       <EditIcon sx={{ color: "#fff" }} />
