@@ -3,7 +3,6 @@ import Image from "next/image";
 import { useState } from "react";
 import LoginForm from "@/components/screen/login";
 import SignUpForm from "@/components/screen/signup";
-import ProjectOverviewModel from "@/components/projectOverviewModel";
 
 export default function Home() {
   const [activetab, setActiveTab] = useState("login");
@@ -33,7 +32,6 @@ export default function Home() {
           </div>
           {activetab === "login" && <LoginForm />}
           {activetab === "signup" && <SignUpForm />}
-          <ProjectOverviewModel />
         </div>
       </div>
     </main>

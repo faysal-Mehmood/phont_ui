@@ -12,24 +12,15 @@ import { Avatar, Box, Card, Typography } from "@mui/material";
 import { SideBarData } from "@/dats/sidebar";
 import Link from "next/link";
 
-export default function ProjectOverviewModel() {
-  const [open, setOpen] = React.useState(false);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
+export default function ProjectOverviewModel({ setOpenModel, openModel }) {
   const handleClose = () => {
-    setOpen(false);
+    setOpenModel(false);
   };
 
   return (
     <React.Fragment>
-      <Button variant="primary" onClick={handleClickOpen}>
-        Open form dialog
-      </Button>
       <Dialog
-        open={open}
+        open={openModel}
         onClose={handleClose}
         PaperProps={{
           component: "div",
@@ -50,9 +41,7 @@ export default function ProjectOverviewModel() {
                 width={101}
                 height={22}
               />
-              <Button variant="primary" onClick={handleClickOpen}>
-                Create
-              </Button>
+              <Button variant="primary">Create</Button>
             </div>
             <Box className={styles.ProfileSettingIcons}>
               <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
