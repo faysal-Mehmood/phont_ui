@@ -1,40 +1,37 @@
 /* styles/Button.module.scss */
 
 .button {
-    cursor: pointer;
-    margin-top: 4rem;
-    padding: 1.25rem 1.5rem;
-    font-size: 1rem;
-    font-weight: 600;
-    border: none;
-    border-radius: 1.25rem;
-    transition: background-color 0.3s ease, color 0.3s ease;
-    outline: none;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 30px;
-    margin: auto;
-  }
-  
-  .primary {
-    background-color: #D2BEFF;
-    color: #000000;
-    
-  }
-  
-  .secondary {
-    background-color: #D2BEFF;
-    color: #000000;
-    border: 1px solid #D2BEFF;
-  }
-  
-  .button:hover {
-    filter: brightness(110%);
-  }
-  
-  .button:active {
-    filter: brightness(120%);
-  }
-  
+  cursor: pointer;
+  margin-top: 4rem;
+  padding: 1.25rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 1.25rem;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  outline: none;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30px;
+}
+
+.primary {
+  background-color: #d2beff;
+  color: #000000;
+}
+
+.secondary {
+  background-color: #d2beff;
+  color: #000000;
+  border: 1px solid #d2beff;
+}
+
+.button:hover {
+  filter: brightness(110%);
+}
+
+.button:active {
+  filter: brightness(120%);
+}
