@@ -25,8 +25,9 @@ const Index = () => {
           <Button
             onClick={() => setOpenModel(true)}
             className={styles.InputButton}
-            variant='outlined'
-            endIcon={<VideocamOutlinedIcon />}>
+            variant="outlined"
+            endIcon={<VideocamOutlinedIcon />}
+          >
             INPUT
           </Button>
 

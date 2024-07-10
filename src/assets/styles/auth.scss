@@ -1,30 +1,23 @@
 .auth-wrapper {
-  position: relative;
-  max-width: 1080px;
-  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 20px;
-  .auth-left-image {
-    position: absolute;
-    top: 240px;
-    left: 420px;
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-    object-fit: cover;
-    border-radius: inherit;
-    img {
-      border-top-left-radius: 20px;
-      border-bottom-left-radius: 20px;
-    }
+  min-height: 100vh;
+  margin: auto;
+}
+.auth-content-wrapper {
+  max-width: 1080px;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  margin-left: -270px;
+  img {
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
   }
   .form-wrapper {
     position: absolute;
-    top: 240px;
-    left: 1050px;
+    left: 484px;
     width: 509px;
     height: 600px;
     z-index: 1;
@@ -90,19 +83,25 @@
         .forget-paswword {
           display: flex;
           justify-content: space-between;
+
           p {
             color: #655095;
-            font-size: 14px;
+            font-size: 12px;
             cursor: pointer;
             &.error {
               color: red;
             }
           }
+          span {
+            margin-top: 10px;
+            color: #655095;
+            font-size: 12px;
+          }
         }
         .error {
           padding-top: 10px;
           color: red;
-          font-size: 14px;
+          font-size: 12px;
         }
       }
       .submit-btn {
@@ -122,7 +121,9 @@
         height: 30px;
         margin: 4rem auto 0px;
         color: #000000;
-        &:hover{background-color: #ffffff;}
+        &:hover {
+          background-color: #ffffff;
+        }
       }
     }
   }

@@ -21,14 +21,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts",
-    "src/components/common/modals/projectOverviewModel/index.js",
-    "src/components/screen/login/index.js",
-    "src/components/screen/signup/index.js"
-  ],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/components/projectOverviewModel/index.js", "src/components/screen/login/index.js", "src/components/screen/signup/index.js", "src/store/action/project.js", "src/components/screen/Basics/index.js"],
   "exclude": ["node_modules"]
 }

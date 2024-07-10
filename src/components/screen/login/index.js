@@ -1,9 +1,12 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
+import loginAction from "../../../store/action/user";
+import { toast } from "react-toastify";
 
 // Define Yup validation schema
 const SignUpSchema = Yup.object().shape({
@@ -14,8 +17,11 @@ const SignUpSchema = Yup.object().shape({
 });
 
 const LoginForm = () => {
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const onSubmit = async (values, { setSubmitting }) => {
+    // const res = await loginAction(values);
+    // router.push("/basics");
     try {
       const response = await axios.post(
         "http://20.218.120.21:8000/api/auth/login",
@@ -27,8 +33,13 @@ const LoginForm = () => {
         }
       );
       console.log("Login successful:", response.data);
+      if (response.data.success) {
+        localStorage.setItem("auth_token", response?.data?.data?.token);
+        router.push("/basics");
+      }
       // Handle successful login (e.g., redirect)
     } catch (error) {
+      toast.error("Invalid  Email/Password");
       console.error("Login error:", error);
     } finally {
       setSubmitting(false);
@@ -86,7 +97,7 @@ const LoginForm = () => {
               <div>
                 <ErrorMessage name="password" component="p" className="error" />
               </div>
-              <p>Forget password?</p>
+              <span>Forget password?</span>
             </div>
           </div>
 
