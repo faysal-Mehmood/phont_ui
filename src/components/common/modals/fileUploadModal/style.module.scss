@@ -1,0 +1,75 @@
+.UploadDetailModel {
+  display: flex;
+  gap: 24px;
+
+  .LeftUploadPanel {
+    .BackArrowButton {
+      width: 44px;
+      height: 44px;
+      border: 1px solid #ffffff;
+      opacity: 1;
+      border: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      margin-top: 38px;
+
+      &:hover {
+        background: #d2beff 0% 0% no-repeat padding-box;
+        cursor: pointer;
+        color: #000000;
+      }
+    }
+  }
+  .UploadBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin-top: 61px;
+    .DashboardDetailPanel {
+      width: 864px;
+      height: 469px;
+      background: #cfbbfb4d 0% 0% no-repeat padding-box;
+      border: 3px dashed #cfbbfb;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 19px;
+
+      &:hover {
+        background: #cfbbfb80 0% 0% no-repeat padding-box;
+      }
+
+      button {
+        border: 1px solid #d2beff;
+        border-radius: 22px;
+        color: #d2beff;
+        letter-spacing: 0px;
+        font-size: 20px;
+        line-height: 24px;
+        padding: 10px 29px;
+        font-weight: 400;
+      }
+    }
+
+    .UploadButton {
+      border: 1px solid #ffffff;
+      border-radius: 22px;
+      color: #ffffff;
+      letter-spacing: 0px;
+      font-size: 20px;
+      line-height: 24px;
+      padding: 10px 29px;
+      font-weight: 400;
+      margin-top: 44px;
+      &:hover {
+        background: #d2beff 0% 0% no-repeat padding-box;
+        color: #000000;
+      }
+    }
+  }
+}

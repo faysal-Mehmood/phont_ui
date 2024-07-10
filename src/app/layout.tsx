@@ -6,7 +6,7 @@ import { StoreProvider } from "@/store/StoreProvider";
 import theme from "../theme";
 import "react-toastify/dist/ReactToastify.css";
 import "../assets/styles/index.scss";
-import SideBar from "@/components/sideBar";
+import SideBar from "@/components/common/sideBar";
 import { ToastContainer } from "react-toastify";
 
 const inter = Inter({ subsets: ["latin"] });
