@@ -7,7 +7,7 @@ import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import styles from "./style.module.scss";
 import VideocamOutlinedIcon from "@mui/icons-material/VideocamOutlined";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import ProjectOverviewModel from "@/components/projectOverviewModel";
+import ProjectOverviewModel from "../../common/modals/projectOverviewModel";
 import VideoPlayer from "./videoPlayer";
 import axios from "axios";
 
