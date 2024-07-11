@@ -43,7 +43,8 @@ const SignUpForm = ({ setActiveTab }) => {
         toast.error(response?.data?.message);
       }
     } catch (error) {
-      console.error("Error:", error);
+      console.error("Error:", error?.response);
+      toast.error(error.response?.data?.message);
     }
     setSubmitting(false);
   };
