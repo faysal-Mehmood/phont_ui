@@ -48,7 +48,7 @@ const SideBar = () => {
         <Box className={styles.SideBarUserAbout}>
           <div
             onClick={() => {
-              localStorage.setItem("aut_token", "");
+              localStorage.setItem("auth_token", "");
               router.push("/");
             }}
           >

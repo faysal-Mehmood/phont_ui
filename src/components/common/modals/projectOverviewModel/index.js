@@ -83,6 +83,7 @@ export default function ProjectOverviewModel({
   };
 
   React.useEffect(() => {
+    console.log("loca", localStorage.getItem("auth_token"));
     if (openModel) {
       getAllProjectDetails();
     }
