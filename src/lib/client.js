@@ -5,7 +5,7 @@ const axiosInstance = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
-  Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
+  // Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
 });
 
 // Add a request interceptor to include the access token in headers
