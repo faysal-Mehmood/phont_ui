@@ -9,7 +9,7 @@ import DialogContent from "@mui/material/DialogContent";
 import styles from "./projectOverviewModel.module.scss";
 import Image from "next/image";
 import { Avatar, Box, Card, Typography } from "@mui/material";
-import { SideBarData } from "@/dats/sidebar";
+import { SideBarData } from "@/data/sidebar";
 import Link from "next/link";
 
 export default function ProjectOverviewModel() {

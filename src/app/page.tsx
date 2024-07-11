@@ -4,6 +4,9 @@ import { useState } from "react";
 import LoginForm from "@/components/screen/login";
 import SignUpForm from "@/components/screen/signup";
 import ProjectOverviewModel from "@/components/projectOverviewModel";
+import FileDetailsModel from "@/components/fileDetailsModel";
+
+
 
 export default function Home() {
   const [activetab, setActiveTab] = useState("login");
@@ -14,13 +17,8 @@ export default function Home() {
           <Image
             src="/images/UX_Picture.jpg"
             alt="left iamge"
-<<<<<<< HEAD
             width={1080}
             height={600}
-=======
-            width={730}
-            height={598}
->>>>>>> 87530edf38eda3aec35cc2fe805c39b6c1a8346d
           />
         </div>
         <div className="form-wrapper">
@@ -39,6 +37,7 @@ export default function Home() {
           {activetab === "login" && <LoginForm />}
           {activetab === "signup" && <SignUpForm />}
           <ProjectOverviewModel />
+          <FileDetailsModel />
         </div>
       </div>
     </main>

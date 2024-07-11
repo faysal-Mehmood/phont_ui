@@ -11,6 +11,10 @@ import HearingDisabledOutlinedIcon from "@mui/icons-material/HearingDisabledOutl
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
+import MonitorIcon from '@mui/icons-material/Monitor';
+import AodTwoToneIcon from '@mui/icons-material/AodTwoTone';
+import AspectRatioIcon from '@mui/icons-material/AspectRatio';
+
 
 export const SideBarData = {
   webLogo: "/images/Phont_Logo_Weiss.svg",
@@ -78,6 +82,20 @@ export const SideBarData = {
     {
       url: "/",
       icon: <SettingsOutlinedIcon />,
+    },
+  ],
+  displayScreens: [
+    {
+      url: "/",
+      icon: <MonitorIcon />,
+    },
+    {
+      url: "/",
+      icon: <AodTwoToneIcon />,
+    },
+    {
+      url: "/",
+      icon: <AspectRatioIcon />,
     },
   ],
 };
