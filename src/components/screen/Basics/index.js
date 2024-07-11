@@ -1,13 +1,14 @@
 "use client";
 import React, { useRef, useState } from "react";
 
-import { Box, Button, IconButton, Typography } from "@mui/material";
+import { Box, Button, IconButton, Input, Typography } from "@mui/material";
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 
 import styles from "./style.module.scss";
 import VideocamOutlinedIcon from "@mui/icons-material/VideocamOutlined";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import ProjectOverviewModel from "../../common/modals/projectOverviewModel";
+import FormatShapesIcon from "@mui/icons-material/FormatShapes";
 import VideoPlayer from "./videoPlayer";
 import axios from "axios";
 
@@ -26,13 +27,19 @@ const Index = () => {
           <Button
             onClick={() => setOpenModel(true)}
             className={styles.InputButton}
-            variant="outlined"
-            endIcon={<VideocamOutlinedIcon />}
-          >
+            variant='outlined'
+            endIcon={<VideocamOutlinedIcon />}>
             INPUT
           </Button>
 
           <InfoOutlinedIcon />
+        </Box>
+
+        <Box className={styles.FunctionPats}>
+          <Box className={styles.FormatInput}>
+            <FormatShapesIcon />
+            <Input type='text' />
+          </Box>
         </Box>
       </Box>
 

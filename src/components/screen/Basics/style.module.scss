@@ -10,6 +10,7 @@
 
   .ControlArea {
     width: 470px;
+    flex-shrink: 0;
     min-height: calc(100vh - 50px);
     background: transparent linear-gradient(180deg, #000000 0%, #00000076 100%)
       0% 0% no-repeat padding-box;
@@ -18,13 +19,13 @@
     backdrop-filter: blur(50px);
     -webkit-backdrop-filter: blur(50px);
     padding: 24px 25px;
-    margin-bottom: 61px;
 
     .ActionArea {
       display: flex;
       align-items: center;
       justify-content: flex-start;
       gap: 20px;
+      margin-bottom: 55px;
       .BackArrowButton {
         width: 44px;
         height: 44px;
@@ -57,6 +58,28 @@
         line-height: 24px;
       }
     }
+
+    .FunctionPats {
+      padding: 0 21px;
+      .FormatInput {
+        display: flex;
+        align-items: center;
+        gap: 28px;
+        color: #ffffff;
+
+        input {
+          width: 100%;
+          height: 38px;
+          border: 1px solid #ffffff;
+          border-radius: 0;
+          opacity: 1;
+          border: 100%;
+          color: #ffffff;
+          font-size: 20px;
+          line-height: 24px;
+        }
+      }
+    }
   }
 
   .ControlImageWithPlay {
@@ -73,6 +96,7 @@
       background: #000000 0% 0% no-repeat padding-box;
       border-radius: 20px;
       opacity: 0.7;
+      overflow: hidden;
     }
 
     .ImageDetail {
