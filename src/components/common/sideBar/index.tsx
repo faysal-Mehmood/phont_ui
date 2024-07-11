@@ -46,7 +46,14 @@ const SideBar = () => {
           </Box>
         </Box>
         <Box className={styles.SideBarUserAbout}>
-          <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+          <div
+            onClick={() => {
+              localStorage.setItem("aut_token", "");
+              router.push("/");
+            }}
+          >
+            <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+          </div>
           {SideBarData?.userAbout?.map((item, index) => (
             <Link key={index} href={item.url}>
               {item.icon}

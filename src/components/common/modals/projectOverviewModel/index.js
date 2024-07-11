@@ -13,21 +13,37 @@ import { SideBarData } from "@/dats/sidebar";
 import Link from "next/link";
 import DeletePopup from "../deletePopup";
 import FileUploadModal from "../fileUploadModal";
+import { toast } from "react-toastify";
 
-export default function ProjectOverviewModel({ setOpenModel, openModel }) {
+export default function ProjectOverviewModel({
+  setOpenModel,
+  openModel,
+  setVideoData,
+}) {
   const [openPopup, setOpenPopup] = React.useState(false);
+  const [uploadFile, setUploadFile] = React.useState(true);
   const [openUploadModal, setOpenUploadModal] = React.useState(false);
+  const [projectName, setProjectName] = React.useState("");
+  const [loadingState, setloadingState] = React.useState("upload");
+  const [seletecproject, setSelectedProject] = React.useState({});
 
   const [allProjects, setAllProjects] = React.useState([]);
   const handleClose = () => {
     setOpenModel(false);
+  };
+
+  const deleteProject = () => {
+    console.log(seletecproject);
+    setAllProjects(allProjects?.filter((f) => f._id !== seletecproject?._id));
+    toast.success("Project has been delete successfully");
+    setOpenPopup(false);
   };
   const createProject = async () => {
     try {
       const auth_token = localStorage.getItem("auth_token");
       const response = await axios.post(
         "http://20.218.120.21:8000/api/project",
-        { name: "project 123456" },
+        { name: projectName },
         {
           headers: {
             "Content-Type": "application/json",
@@ -35,9 +51,12 @@ export default function ProjectOverviewModel({ setOpenModel, openModel }) {
           },
         }
       );
-      console.log(response.data);
+      if (response?.data?.success) {
+        setUploadFile(false);
+      }
     } catch (error) {
       console.error("Error:", error);
+      toast.error(error?.response?.data?.message);
     }
   };
 
@@ -88,17 +107,19 @@ export default function ProjectOverviewModel({ setOpenModel, openModel }) {
           <DialogContent className={styles.ProfileDetailModel}>
             <div className={styles.LeftProfilePanel}>
               <div className={styles.CreateButtonlogo}>
-                <div onClick={createProject}>
-                  <Image
-                    src={"/images/Phont_Logo_Weiss.svg"}
-                    alt={"logo"}
-                    width={101}
-                    height={22}
-                  />
-                </div>
+                <Image
+                  src={"/images/Phont_Logo_Weiss.svg"}
+                  alt={"logo"}
+                  width={101}
+                  height={22}
+                />
+
                 <Button
                   variant="primary"
-                  onClick={() => setOpenUploadModal(true)}
+                  onClick={() => {
+                    setOpenUploadModal(true);
+                    setUploadFile(true);
+                  }}
                 >
                   Create
                 </Button>
@@ -119,52 +140,83 @@ export default function ProjectOverviewModel({ setOpenModel, openModel }) {
                 color={"#fff"}
                 marginBottom={"17px"}
               >
-                !Welcome Back
+                ! Welcome Back
               </Typography>
               <div className={styles.ProjectBoxWrapper}>
-                {allProjects?.map((item, index) => (
-                  <div key={index} className={styles.ProjectDetailCard}>
-                    <div className={styles.ProjectBox}></div>
-                    <div className={styles.ProjectDescriptionpanel}>
-                      <Typography
-                        fontSize={"12px"}
-                        variant="body2"
-                        fontWeight={400}
-                        color={"#fff"}
-                        marginBottom={"13px"}
-                      >
-                        {item.name}
-                      </Typography>
-                      <div>
-                        <EditIcon sx={{ color: "#fff" }} />
-                        <DeleteOutlineOutlinedIcon
-                          onClick={() => setOpenPopup(true)}
-                          sx={{ color: "#fff", cursor: "pointer" }}
-                        />
-                      </div>
-                    </div>
+                {allProjects ? (
+                  allProjects?.length ? (
+                    allProjects?.map((item, index) => (
+                      <div key={index} className={styles.ProjectDetailCard}>
+                        <div
+                          className={styles.ProjectBox}
+                          onClick={() => {
+                            setOpenUploadModal(true);
+                            setloadingState("upload");
+                            setUploadFile(false);
+                          }}
+                        ></div>
+                        <div className={styles.ProjectDescriptionpanel}>
+                          <Typography
+                            fontSize={"12px"}
+                            variant="body2"
+                            fontWeight={400}
+                            color={"#fff"}
+                            marginBottom={"13px"}
+                          >
+                            {item.name}
+                          </Typography>
+                          <div>
+                            <EditIcon sx={{ color: "#fff" }} />
+                            <DeleteOutlineOutlinedIcon
+                              onClick={() => {
+                                setOpenPopup(true);
+                                setSelectedProject(item);
+                              }}
+                              sx={{ color: "#fff", cursor: "pointer" }}
+                            />
+                          </div>
+                        </div>
 
-                    <Typography
-                      fontSize={"12px"}
-                      variant="body2"
-                      fontWeight={400}
-                      color={"#fff"}
-                      marginBottom={"13px"}
-                    >
-                      Date
-                    </Typography>
-                  </div>
-                ))}
+                        <Typography
+                          fontSize={"12px"}
+                          variant="body2"
+                          fontWeight={400}
+                          color={"#fff"}
+                          marginBottom={"13px"}
+                        >
+                          Date
+                        </Typography>
+                      </div>
+                    ))
+                  ) : (
+                    <div>No data found</div>
+                  )
+                ) : (
+                  <div>loading....</div>
+                )}
               </div>
             </div>
           </DialogContent>
         </Dialog>
       </React.Fragment>
 
-      <DeletePopup openPopup={openPopup} setOpenPopup={setOpenPopup} />
+      <DeletePopup
+        openPopup={openPopup}
+        setOpenPopup={setOpenPopup}
+        deleteProject={deleteProject}
+      />
       <FileUploadModal
         openModel={openUploadModal}
         setOpenModel={setOpenUploadModal}
+        createProject={createProject}
+        setProjectName={setProjectName}
+        projectName={projectName}
+        setuploadFile={setUploadFile}
+        uploadFile={uploadFile}
+        setVideoData={setVideoData}
+        setOpenPorjectModel={setOpenModel}
+        setloadingState={setloadingState}
+        loadingState={loadingState}
       />
     </>
   );

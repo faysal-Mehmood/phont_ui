@@ -13,9 +13,10 @@ import { deletePopup } from "./deletePopup.style";
 interface PopupTypes {
   openPopup: boolean;
   setOpenPopup: React.Dispatch<React.SetStateAction<boolean>>;
+  deleteProject: () => void;
 }
 
-const Index = ({ openPopup, setOpenPopup }: PopupTypes) => {
+const Index = ({ openPopup, setOpenPopup, deleteProject }: PopupTypes) => {
   const handleClose = () => {
     setOpenPopup(false);
   };
@@ -26,22 +27,25 @@ const Index = ({ openPopup, setOpenPopup }: PopupTypes) => {
         open={openPopup}
         onClose={handleClose}
         sx={deletePopup}
-        className={styles.DeletePopup}>
+        className={styles.DeletePopup}
+      >
         <DialogTitle className={styles.Heading}>
           {"Delete this project?"}
         </DialogTitle>
         <DialogActions className={styles.ButtonsBox}>
           <Button
-            variant='outlined'
+            variant="outlined"
             startIcon={<CloseIcon />}
-            onClick={handleClose}>
+            onClick={handleClose}
+          >
             No
           </Button>
           <Button
-            variant='outlined'
+            variant="outlined"
             startIcon={<CheckIcon />}
-            onClick={handleClose}
-            autoFocus>
+            onClick={deleteProject}
+            autoFocus
+          >
             Yes
           </Button>
         </DialogActions>

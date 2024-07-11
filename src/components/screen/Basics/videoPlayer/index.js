@@ -8,26 +8,28 @@ const VideoPlayer = ({ videoUrl, subtitles }) => {
 
   useEffect(() => {
     const handleTimeUpdate = () => {
-      const currentTime = videoRef.current.currentTime;
-      const subtitle = subtitles.find(
-        (s) => currentTime >= s.start_time && currentTime <= s.end_time
-      );
+      if (subtitles) {
+        const currentTime = videoRef.current.currentTime;
+        const subtitle = subtitles.find(
+          (s) => currentTime >= s.start_time && currentTime <= s.end_time
+        );
 
-      if (subtitle) {
-        setCurrentSubtitle(subtitle.subtitle);
-        setEmotion(subtitle.emotion);
-        setEmotionIntensity(subtitle.emotion_intensity);
-      } else {
-        setCurrentSubtitle("");
-        setEmotion("");
-        setEmotionIntensity(0);
+        if (subtitle) {
+          setCurrentSubtitle(subtitle.subtitle);
+          setEmotion(subtitle.emotion);
+          setEmotionIntensity(subtitle.emotion_intensity);
+        } else {
+          setCurrentSubtitle("");
+          setEmotion("");
+          setEmotionIntensity(0);
+        }
       }
-    };
 
-    videoRef.current.addEventListener("timeupdate", handleTimeUpdate);
+      videoRef.current.addEventListener("timeupdate", handleTimeUpdate);
 
-    return () => {
-      videoRef.current.removeEventListener("timeupdate", handleTimeUpdate);
+      return () => {
+        videoRef.current.removeEventListener("timeupdate", handleTimeUpdate);
+      };
     };
   }, [subtitles]);
 
