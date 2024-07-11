@@ -4,7 +4,7 @@ import BasicScreen from "@/components/screen/Basics";
 
 const Page = () => {
   return (
-    <main className='main'>
+    <main className="main">
       <BasicScreen />
     </main>
   );

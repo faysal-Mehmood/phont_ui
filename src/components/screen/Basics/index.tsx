@@ -1,19 +1,18 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 
 import { Box, Button, IconButton, Typography } from "@mui/material";
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
-
-import styles from "./style.module.scss";
 import VideocamOutlinedIcon from "@mui/icons-material/VideocamOutlined";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import ProjectOverviewModel from "../../common/modals/projectOverviewModel";
 import VideoPlayer from "./videoPlayer";
-import axios from "axios";
+
+import styles from "./style.module.scss";
 
 const Index = () => {
   const [openModel, setOpenModel] = React.useState(false);
-  const [videoData, setVideoData] = useState(null);
+  const [videoData, setVideoData] = useState<any>(null);
 
   return (
     <Box className={styles.BasicContainer}>

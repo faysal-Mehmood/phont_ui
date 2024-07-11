@@ -1,30 +1,16 @@
 "use client";
-import React, { createContext, useState } from "react";
+import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 
-import * as Yup from "yup";
+import { SignUpSchema } from "@/helper/validation/authValidation";
 import Image from "next/image";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-const MyContext = createContext(null);
-
-// Define Yup validation schema
-const SignUpSchema = Yup.object().shape({
-  username: Yup.string().required("Username is Required"),
-  email: Yup.string().email("Invalid email").required("Email is Required"),
-  password: Yup.string()
-    .min(6, "Password must be at least 6 characters")
-    .required("Password is Required"),
-  confirmPassword: Yup.string()
-    .oneOf([Yup.ref("password"), null], "Passwords must match")
-    .required("Confirm Password is required"),
-});
-
-const SignUpForm = ({ setActiveTab }) => {
+const SignUpForm = ({ setActiveTab }: any) => {
   const [password, setpassword] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState(false);
-  const onSubmit = async (values, { setSubmitting }) => {
+  const onSubmit = async (values: any, { setSubmitting }: any) => {
     try {
       const response = await axios.post(
         "http://20.218.120.21:8000/api/auth/signup",

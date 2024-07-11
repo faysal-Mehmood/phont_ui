@@ -5,19 +5,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
-import { SideBarData } from "@/dats/sidebar";
+import { SideBarData } from "@/data/sidebar";
 
 import styles from "./sidebar.module.scss";
 
 const SideBar = () => {
   const router = useRouter();
   const pathname = usePathname();
-  // useEffect(() => {
-  //   if (pathname === "/basics" && !localStorage.getItem("auth_token")) {
-  //     router.push("/");
-  //   }
-  // }, [pathname]);
-  // console.log("pathname", pathname);
 
   return (
     <Box
