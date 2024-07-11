@@ -2,8 +2,8 @@ import { Slider } from "@mui/material";
 import React from "react";
 
 interface slierProps {
-  value: number;
-  setValue: (value: number) => void;
+  value?: number;
+  setValue?: (value: number) => void;
   className?: string;
   label?: string;
   min?: number;

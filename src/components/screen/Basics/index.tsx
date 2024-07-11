@@ -35,6 +35,8 @@ import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOu
 
 import ContentCutOutlinedIcon from "@mui/icons-material/ContentCutOutlined";
 
+import styles from "./style.module.scss";
+
 const Index = () => {
   const [openModel, setOpenModel] = React.useState(false);
   const [videoData, setVideoData] = useState<any>(null);
@@ -65,7 +67,7 @@ const Index = () => {
           </Box>
 
           <Box className={styles.GtsSlide}>
-            <Typography variant='p' fontSize={20} lineHeight={"24px"}>
+            <Typography variant='body1' fontSize={20} lineHeight={"24px"}>
               GTS:
             </Typography>
             <Typography
