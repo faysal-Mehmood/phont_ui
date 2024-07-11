@@ -1,8 +1,8 @@
 "use client";
 import Image from "next/image";
 import { useState } from "react";
-import LoginForm from "@/components/screen/login";
-import SignUpForm from "@/components/screen/signup";
+import LoginForm from "../components/screen/login";
+import SignUpForm from "../components/screen/signup";
 
 export default function Home() {
   const [activetab, setActiveTab] = useState("login");

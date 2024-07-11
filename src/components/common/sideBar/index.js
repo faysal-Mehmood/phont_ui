@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
-import { SideBarData } from "@/dats/sidebar";
+import { SideBarData } from "../../../dats/sidebar";
 
 import styles from "./sidebar.module.scss";
 

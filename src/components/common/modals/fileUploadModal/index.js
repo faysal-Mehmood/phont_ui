@@ -33,20 +33,6 @@ import { uploadModule } from "./uploadModule.style";
 import styles from "./style.module.scss";
 import axios from "axios";
 
-interface UploadModuleProps {
-  openModel: boolean;
-  setOpenModel: React.Dispatch<React.SetStateAction<boolean>>;
-  createProject: any;
-  setProjectName: (value: string) => void;
-  projectName: string;
-  uploadFile: boolean;
-  setUploadFile: (value: boolean) => void;
-  setVideoData: (value: any) => void;
-  setOpenPorjectModel: (value: boolean) => void;
-  loadingState: string;
-  setloadingState: (value: string) => void;
-}
-
 const Index = ({
   openModel,
   setOpenModel,
@@ -59,13 +45,13 @@ const Index = ({
   setOpenPorjectModel,
   setloadingState,
   loadingState,
-}: UploadModuleProps) => {
-  const videoRef = useRef<any>(null);
+}) => {
+  const videoRef = useRef(null);
   const [age, setAge] = React.useState("");
 
-  const [fileData, setfileData] = React.useState<any>("");
-  const handleChange = (event: SelectChangeEvent) => {
-    setAge(event.target.value as string);
+  const [fileData, setfileData] = React.useState("");
+  const handleChange = (event) => {
+    setAge(event.target.value);
   };
   const uploadVideo = async () => {
     if (fileData?.type === "video/mp4") {
@@ -89,7 +75,7 @@ const Index = ({
           setloadingState("complete");
           setVideoData(response.data?.data);
         }
-      } catch (error: any) {
+      } catch (error) {
         console.error("Response Error:", error.response.data);
       }
     }
@@ -97,7 +83,7 @@ const Index = ({
   const handleUploadVideo = () => {
     videoRef.current?.click();
   };
-  const handleVideoUpload = async (event: any) => {
+  const handleVideoUpload = async (event) => {
     console.log("eve", event.target.files[0]);
     const videodata = event.target.files[0];
     if (videodata?.type === "video/mp4") {
@@ -144,7 +130,7 @@ const Index = ({
                     value={projectName}
                     placeholder="Project Name"
                     className={styles.NameInput}
-                    onChange={(e: any) => setProjectName(e.target.value)}
+                    onChange={(e) => setProjectName(e.target.value)}
                   />
 
                   <Box className={styles.ScreenSizes}>

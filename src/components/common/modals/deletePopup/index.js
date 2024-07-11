@@ -10,13 +10,7 @@ import CheckIcon from "@mui/icons-material/Check";
 import styles from "./style.module.scss";
 import { deletePopup } from "./deletePopup.style";
 
-interface PopupTypes {
-  openPopup: boolean;
-  setOpenPopup: React.Dispatch<React.SetStateAction<boolean>>;
-  deleteProject: () => void;
-}
-
-const Index = ({ openPopup, setOpenPopup, deleteProject }: PopupTypes) => {
+const Index = ({ openPopup, setOpenPopup, deleteProject }) => {
   const handleClose = () => {
     setOpenPopup(false);
   };

@@ -1,6 +1,6 @@
 "use client";
 import * as React from "react";
-import Button from "@/utils/button/Button";
+import Button from "../../../../utils/button/Button";
 import axios from "axios";
 import Dialog from "@mui/material/Dialog";
 import EditIcon from "@mui/icons-material/Edit";
@@ -9,7 +9,7 @@ import DialogContent from "@mui/material/DialogContent";
 import styles from "./projectOverviewModel.module.scss";
 import Image from "next/image";
 import { Avatar, Box, Card, Typography } from "@mui/material";
-import { SideBarData } from "@/dats/sidebar";
+import { SideBarData } from "../../../../dats/sidebar";
 import Link from "next/link";
 import DeletePopup from "../deletePopup";
 import FileUploadModal from "../fileUploadModal";
