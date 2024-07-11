@@ -1,17 +1,18 @@
 import { useState, useEffect, useRef } from "react";
+import { VideoPlayerProps } from "@/helper/types";
 
-const VideoPlayer = ({ videoUrl, subtitles }) => {
+const VideoPlayer = ({ videoUrl, subtitles }: VideoPlayerProps) => {
   const [currentSubtitle, setCurrentSubtitle] = useState("");
   const [emotion, setEmotion] = useState("");
   const [emotionIntensity, setEmotionIntensity] = useState(0);
-  const videoRef = useRef(null);
+  const videoRef = useRef<any>(null);
 
   useEffect(() => {
     const handleTimeUpdate = () => {
       if (subtitles) {
         const currentTime = videoRef.current.currentTime;
         const subtitle = subtitles.find(
-          (s) => currentTime >= s.start_time && currentTime <= s.end_time
+          (s: any) => currentTime >= s.start_time && currentTime <= s.end_time
         );
 
         if (subtitle) {

@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 
 import {
   Box,
@@ -10,8 +10,6 @@ import {
   Typography,
 } from "@mui/material";
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
-
-import styles from "./style.module.scss";
 import VideocamOutlinedIcon from "@mui/icons-material/VideocamOutlined";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import ProjectOverviewModel from "../../common/modals/projectOverviewModel";
@@ -39,7 +37,7 @@ import ContentCutOutlinedIcon from "@mui/icons-material/ContentCutOutlined";
 
 const Index = () => {
   const [openModel, setOpenModel] = React.useState(false);
-  const [videoData, setVideoData] = useState(null);
+  const [videoData, setVideoData] = useState<any>(null);
 
   return (
     <Box className={styles.BasicContainer}>
