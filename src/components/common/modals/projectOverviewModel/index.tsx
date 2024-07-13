@@ -9,7 +9,7 @@ import DialogContent from "@mui/material/DialogContent";
 import styles from "./projectOverviewModel.module.scss";
 import Image from "next/image";
 import { Avatar, Box, Card, Typography } from "@mui/material";
-import { SideBarData } from "@/dats/sidebar";
+import { SideBarData } from "@/data/sidebar";
 import Link from "next/link";
 import DeletePopup from "../deletePopup";
 import FileUploadModal from "../fileUploadModal";
@@ -19,13 +19,13 @@ export default function ProjectOverviewModel({
   setOpenModel,
   openModel,
   setVideoData,
-}) {
+}: any) {
   const [openPopup, setOpenPopup] = React.useState(false);
   const [uploadFile, setUploadFile] = React.useState(true);
   const [openUploadModal, setOpenUploadModal] = React.useState(false);
   const [projectName, setProjectName] = React.useState("");
   const [loadingState, setloadingState] = React.useState("upload");
-  const [seletecproject, setSelectedProject] = React.useState({});
+  const [seletecproject, setSelectedProject] = React.useState<any>({});
 
   const [allProjects, setAllProjects] = React.useState([]);
   const handleClose = () => {
@@ -34,14 +34,16 @@ export default function ProjectOverviewModel({
 
   const deleteProject = () => {
     console.log(seletecproject);
-    setAllProjects(allProjects?.filter((f) => f._id !== seletecproject?._id));
+    setAllProjects(
+      allProjects?.filter((f: any) => f._id !== seletecproject?._id)
+    );
     toast.success("Project has been delete successfully");
     setOpenPopup(false);
   };
   const createProject = async () => {
     try {
       const auth_token = localStorage.getItem("auth_token");
-      const response = await axios.post(
+      const response: any = await axios.post(
         "http://20.218.120.21:8000/api/project",
         { name: projectName },
         {
@@ -54,7 +56,7 @@ export default function ProjectOverviewModel({
       if (response?.data?.success) {
         setUploadFile(false);
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error:", error);
       toast.error(error?.response?.data?.message);
     }
@@ -145,7 +147,7 @@ export default function ProjectOverviewModel({
               <div className={styles.ProjectBoxWrapper}>
                 {allProjects ? (
                   allProjects?.length ? (
-                    allProjects?.map((item, index) => (
+                    allProjects?.map((item: any, index) => (
                       <div key={index} className={styles.ProjectDetailCard}>
                         <div
                           className={styles.ProjectBox}
@@ -211,7 +213,7 @@ export default function ProjectOverviewModel({
         createProject={createProject}
         setProjectName={setProjectName}
         projectName={projectName}
-        setuploadFile={setUploadFile}
+        setUploadFile={setUploadFile}
         uploadFile={uploadFile}
         setVideoData={setVideoData}
         setOpenPorjectModel={setOpenModel}

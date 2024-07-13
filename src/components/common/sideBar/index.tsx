@@ -12,12 +12,6 @@ import styles from "./sidebar.module.scss";
 const SideBar = () => {
   const router = useRouter();
   const pathname = usePathname();
-  // useEffect(() => {
-  //   if (pathname === "/basics" && !localStorage.getItem("auth_token")) {
-  //     router.push("/");
-  //   }
-  // }, [pathname]);
-  // console.log("pathname", pathname);
 
   return (
     <Box

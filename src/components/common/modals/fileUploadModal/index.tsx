@@ -32,6 +32,7 @@ import FileDownloadDoneOutlinedIcon from "@mui/icons-material/FileDownloadDoneOu
 import { uploadModule } from "./uploadModule.style";
 import styles from "./style.module.scss";
 import axios from "axios";
+import { FormSelect } from "@/utils/formSelect/FormSelect";
 
 interface UploadModuleProps {
   openModel: boolean;
@@ -82,7 +83,7 @@ const Index = ({
               "Content-Type": "multipart/form-data", // Changed to multipart/form-data
               Authorization: `Bearer ${auth_token}`,
             },
-          }
+          },
         );
         console.log(response.data);
         if (response.data.success) {
@@ -116,8 +117,7 @@ const Index = ({
       <Dialog
         open={openModel}
         onClose={handleClose}
-        sx={uploadModule({ uploadFile })}
-      >
+        sx={uploadModule({ uploadFile })}>
         <DialogContent className={styles.UploadDetailModel}>
           <Box marginTop={uploadFile ? "20px" : ""}>
             <Image
@@ -131,8 +131,7 @@ const Index = ({
               onClick={() => {
                 setOpenModel(false);
                 setloadingState("upload");
-              }}
-            >
+              }}>
               <ArrowBackOutlinedIcon />
             </IconButton>
           </Box>
@@ -142,7 +141,7 @@ const Index = ({
                 <Box>
                   <Input
                     value={projectName}
-                    placeholder="Project Name"
+                    placeholder='Project Name'
                     className={styles.NameInput}
                     onChange={(e: any) => setProjectName(e.target.value)}
                   />
@@ -157,62 +156,56 @@ const Index = ({
                   <Box className={styles.HandelPart}>
                     <Box className={styles.SettingAllSide}>
                       <PaletteOutlinedIcon />
-                      <Typography variant="h6" color={"#FFFFFF"}>
+                      <Typography variant='h6' color={"#FFFFFF"}>
                         Background
                       </Typography>
                       <Input
-                        type="color"
+                        type='color'
                         value={""}
                         className={styles.ColorPicker}
                       />
                     </Box>
+                    <FormSelect
+                      label=' Framerate'
+                      icon={<CropFreeOutlinedIcon />}
+                      value={age}
+                      onChange={handleChange}
+                      data={[
+                        {
+                          label: "24 fps",
+                          value: 24,
+                        },
+                        {
+                          label: "25 fps",
+                          value: 25,
+                        },
+                        {
+                          label: "30 fps",
+                          value: 30,
+                        },
+                        {
+                          label: "50 fps",
+                          value: 50,
+                        },
+                      ]}
+                    />
 
-                    <Box className={styles.SettingAllSide}>
-                      <CropFreeOutlinedIcon />
-                      <Typography variant="h6" color={"#FFFFFF"}>
-                        Framerate
-                      </Typography>
-                      <Select
-                        className={styles.Select}
-                        value={age}
-                        onChange={handleChange}
-                        sx={{
-                          "& .MuiSelect-select": {
-                            padding: "4px 12px",
-                            color: "#FFFFFF",
-                            fontSize: "20px",
-                            lineHeight: "24px",
-                          },
-
-                          "& .MuiSvgIcon-root": {
-                            color: "#FFFFFF",
-                          },
-                        }}
-                      >
-                        <MenuItem value={24}>24 fps</MenuItem>
-                        <MenuItem value={25}>25 fps</MenuItem>
-                        <MenuItem value={30}>30 fps</MenuItem>
-                        <MenuItem value={60}>60 fps</MenuItem>
-                      </Select>
-                    </Box>
                     <Box
                       sx={{
                         alignItems: "flex-start !important",
                       }}
-                      className={styles.SettingAllSide}
-                    >
+                      className={styles.SettingAllSide}>
                       <SubtitlesOutlinedIcon />
-                      <Typography variant="h6" color={"#FFFFFF"}>
+                      <Typography variant='h6' color={"#FFFFFF"}>
                         Subtitles:
                       </Typography>
                       <FormControl>
                         <RadioGroup
-                          aria-labelledby="demo-radio-buttons-group-label"
-                          defaultValue="Generate-New"
-                          name="radio-buttons-group"
-                        >
+                          aria-labelledby='demo-radio-buttons-group-label'
+                          defaultValue='Generate-New'
+                          name='radio-buttons-group'>
                           <FormControlLabel
-                            value="Generate-New"
+                            value='Generate-New'
                             sx={{
                               "& .MuiFormControlLabel-label": {
                                 fontSize: "20px",
@@ -229,10 +222,10 @@ const Index = ({
                                 }}
                               />
                             }
-                            label="Generate New"
+                            label='Generate New'
                           />
                           <FormControlLabel
-                            value="UseSRT"
+                            value='UseSRT'
                             sx={{
                               "& .MuiFormControlLabel-label": {
                                 fontSize: "20px",
@@ -249,7 +242,7 @@ const Index = ({
                                 }}
                               />
                             }
-                            label="Use SRT"
+                            label='Use SRT'
                           />
                         </RadioGroup>
                       </FormControl>
@@ -260,12 +253,11 @@ const Index = ({
               <Box className={styles.RightSideSetting}>
                 <Box width={"207px"} height={"364px"} bgcolor={"#CFBBFB"}></Box>
                 <Button
-                  variant="outlined"
+                  variant='outlined'
                   className={styles.GenerateButton}
                   onClick={createProject}
                   endIcon={<ArrowForwardOutlinedIcon />}
-                  autoFocus
-                >
+                  autoFocus>
                   GENERATE
                 </Button>
               </Box>
@@ -274,8 +266,7 @@ const Index = ({
             <Box className={styles.UploadBox}>
               <Box
                 className={styles.DashboardDetailPanel}
-                onClick={handleUploadVideo}
-              >
+                onClick={handleUploadVideo}>
                 {loadingState === "loading" ? (
                   <Box sx={{ display: "flex" }}>
                     <CircularProgress
@@ -301,35 +292,33 @@ const Index = ({
                 )}
 
                 <input
-                  type="file"
-                  name="videofile"
+                  type='file'
+                  name='videofile'
                   ref={videoRef}
                   onChange={handleVideoUpload}
                   style={{ display: "none" }}
                 />
                 {loadingState === "loading" || loadingState === "uploaded" ? (
                   <Typography
-                    variant="h3"
+                    variant='h3'
                     fontWeight={500}
                     fontSize={20}
                     lineHeight={"24px"}
-                    color={"#D2BEFF"}
-                  >
+                    color={"#D2BEFF"}>
                     {fileData?.name}
                   </Typography>
                 ) : loadingState === "upload" ? (
-                  <Button variant="outlined" autoFocus>
+                  <Button variant='outlined' autoFocus>
                     Choose File
                   </Button>
                 ) : (
                   ""
                 )}
                 <Typography
-                  variant="body1"
+                  variant='body1'
                   fontSize={20}
                   lineHeight={"24px"}
-                  color={"#D2BEFF"}
-                >
+                  color={"#D2BEFF"}>
                   {loadingState === "loading"
                     ? "Loading..."
                     : loadingState === "complete"
@@ -341,7 +330,7 @@ const Index = ({
               </Box>
 
               <Button
-                variant="outlined"
+                variant='outlined'
                 className={styles.UploadButton}
                 onClick={() => {
                   if (loadingState === "uploaded") {
@@ -351,8 +340,7 @@ const Index = ({
                     setOpenPorjectModel(false);
                   }
                 }}
-                autoFocus
-              >
+                autoFocus>
                 {loadingState === "complete" ? "Next" : "Upload"}
               </Button>
             </Box>

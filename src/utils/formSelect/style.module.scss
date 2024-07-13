@@ -1,0 +1,29 @@
+.SettingAllSide {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  .ColorPicker {
+    margin-left: 15px;
+    cursor: pointer;
+    input {
+      padding: 0;
+      width: 31px;
+      height: 29px;
+    }
+    &::after {
+      display: none;
+    }
+    &::before {
+      display: none;
+    }
+  }
+
+  .Select {
+    background-color: #1d1822;
+    color: "#FFFFFF";
+    min-width: 128px;
+    min-height: 34px;
+    margin-left: 30px;
+  }
+}
