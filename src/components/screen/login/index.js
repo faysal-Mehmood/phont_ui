@@ -1,21 +1,27 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
+import loginAction from "../../../store/action/user";
+import { toast } from "react-toastify";
 
 // Define Yup validation schema
 const SignUpSchema = Yup.object().shape({
-  username: Yup.string().required("Username is Required"),
+  email: Yup.string().required("Email is Required"),
   password: Yup.string()
     .min(6, "Password must be at least 6 characters")
     .required("Password is Required"),
 });
 
 const LoginForm = () => {
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
-  const onSubmit = async (values: any, { setSubmitting }) => {
+  const onSubmit = async (values, { setSubmitting }) => {
+    // const res = await loginAction(values);
+    // router.push("/basics");
     try {
       const response = await axios.post(
         "http://20.218.120.21:8000/api/auth/login",
@@ -27,8 +33,13 @@ const LoginForm = () => {
         }
       );
       console.log("Login successful:", response.data);
+      if (response.data.success) {
+        localStorage.setItem("auth_token", response?.data?.data?.token);
+        router.push("/basics");
+      }
       // Handle successful login (e.g., redirect)
     } catch (error) {
+      toast.error("Invalid  Email/Password");
       console.error("Login error:", error);
     } finally {
       setSubmitting(false);
@@ -38,7 +49,7 @@ const LoginForm = () => {
   return (
     <Formik
       initialValues={{
-        username: "",
+        email: "",
         password: "",
       }}
       validationSchema={SignUpSchema}
@@ -49,12 +60,12 @@ const LoginForm = () => {
           <div className="inputWrapper">
             <Field
               type="text"
-              id="username"
-              name="username"
+              id="email"
+              name="email"
               placeholder="Name"
               className="inputBox"
             />
-            <ErrorMessage name="username" component="p" className="error" />
+            <ErrorMessage name="email" component="p" className="error" />
           </div>
 
           <div className="inputWrapper">
@@ -86,7 +97,7 @@ const LoginForm = () => {
               <div>
                 <ErrorMessage name="password" component="p" className="error" />
               </div>
-              <p>Forget password?</p>
+              <span>Forget password?</span>
             </div>
           </div>
 
