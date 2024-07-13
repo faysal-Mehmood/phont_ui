@@ -1,6 +1,5 @@
 "use client";
 import * as React from "react";
-import Button from "@/utils/button/Button";
 import axios from "axios";
 import Dialog from "@mui/material/Dialog";
 import EditIcon from "@mui/icons-material/Edit";
@@ -14,6 +13,7 @@ import Link from "next/link";
 import DeletePopup from "../deletePopup";
 import FileUploadModal from "../fileUploadModal";
 import { toast } from "react-toastify";
+import { Button } from "@/utils/button/Button";
 
 export default function ProjectOverviewModel({
   setOpenModel,
@@ -35,7 +35,7 @@ export default function ProjectOverviewModel({
   const deleteProject = () => {
     console.log(seletecproject);
     setAllProjects(
-      allProjects?.filter((f: any) => f._id !== seletecproject?._id)
+      allProjects?.filter((f: any) => f._id !== seletecproject?._id),
     );
     toast.success("Project has been delete successfully");
     setOpenPopup(false);
@@ -51,7 +51,7 @@ export default function ProjectOverviewModel({
             "Content-Type": "application/json",
             Authorization: `Bearer ${auth_token}`,
           },
-        }
+        },
       );
       if (response?.data?.success) {
         setUploadFile(false);
@@ -72,7 +72,7 @@ export default function ProjectOverviewModel({
             "Content-Type": "application/json",
             Authorization: `Bearer ${auth_token}`,
           },
-        }
+        },
       );
       if (response.data?.success) {
         setAllProjects(response?.data?.data);
@@ -104,8 +104,7 @@ export default function ProjectOverviewModel({
               maxWidth: "1200px",
               width: "1200px",
             },
-          }}
-        >
+          }}>
           <DialogContent className={styles.ProfileDetailModel}>
             <div className={styles.LeftProfilePanel}>
               <div className={styles.CreateButtonlogo}>
@@ -117,17 +116,20 @@ export default function ProjectOverviewModel({
                 />
 
                 <Button
-                  variant="primary"
+                  variant='primary'
                   onClick={() => {
                     setOpenUploadModal(true);
                     setUploadFile(true);
                   }}
-                >
+                  sx={{
+                    width: "150px",
+                    marginTop: "57px",
+                  }}>
                   Create
                 </Button>
               </div>
               <Box className={styles.ProfileSettingIcons}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+                <Avatar alt='Remy Sharp' src='/static/images/avatar/1.jpg' />
                 {SideBarData?.userAbout?.map((item, index) => (
                   <Link key={index} href={item.url}>
                     {item.icon}
@@ -137,11 +139,10 @@ export default function ProjectOverviewModel({
             </div>
             <div className={styles.DashboardDetailPanel}>
               <Typography
-                variant="subtitle1"
+                variant='subtitle1'
                 fontWeight={400}
                 color={"#fff"}
-                marginBottom={"17px"}
-              >
+                marginBottom={"17px"}>
                 ! Welcome Back
               </Typography>
               <div className={styles.ProjectBoxWrapper}>
@@ -155,37 +156,42 @@ export default function ProjectOverviewModel({
                             setOpenUploadModal(true);
                             setloadingState("upload");
                             setUploadFile(false);
-                          }}
-                        ></div>
+                          }}></div>
                         <div className={styles.ProjectDescriptionpanel}>
                           <Typography
                             fontSize={"12px"}
-                            variant="body2"
+                            variant='body2'
                             fontWeight={400}
-                            color={"#fff"}
-                            marginBottom={"13px"}
-                          >
+                            color={"#fff"}>
                             {item.name}
                           </Typography>
                           <div>
-                            <EditIcon sx={{ color: "#fff" }} />
+                            <EditIcon
+                              width={"18px"}
+                              height={"18px"}
+                              sx={{ color: "#fff" }}
+                            />
                             <DeleteOutlineOutlinedIcon
+                              width={"16px"}
+                              height={"18px"}
                               onClick={() => {
                                 setOpenPopup(true);
                                 setSelectedProject(item);
                               }}
-                              sx={{ color: "#fff", cursor: "pointer" }}
+                              sx={{
+                                color: "#fff",
+                                cursor: "pointer",
+                                marginLeft: "10px",
+                              }}
                             />
                           </div>
                         </div>
 
                         <Typography
                           fontSize={"12px"}
-                          variant="body2"
+                          variant='body2'
                           fontWeight={400}
-                          color={"#fff"}
-                          marginBottom={"13px"}
-                        >
+                          color={"#fff"}>
                           Date
                         </Typography>
                       </div>

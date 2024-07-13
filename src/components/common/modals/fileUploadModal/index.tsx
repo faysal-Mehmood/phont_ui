@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import {
   Box,
-  Button,
   CircularProgress,
   Dialog,
   DialogContent,
@@ -33,6 +32,7 @@ import { uploadModule } from "./uploadModule.style";
 import styles from "./style.module.scss";
 import axios from "axios";
 import { FormSelect } from "@/utils/formSelect/FormSelect";
+import { Button } from "@/utils/button/Button";
 
 interface UploadModuleProps {
   openModel: boolean;
@@ -65,6 +65,8 @@ const Index = ({
   const [age, setAge] = React.useState("");
 
   const [fileData, setfileData] = React.useState<any>("");
+  const [selectScreenSize, setSelectScreenSize] = React.useState("mobile");
+
   const handleChange = (event: SelectChangeEvent) => {
     setAge(event.target.value as string);
   };
@@ -136,131 +138,185 @@ const Index = ({
             </IconButton>
           </Box>
           {uploadFile ? (
-            <Box className={styles.AfterUpload}>
-              <Box className={styles.LeftSideSetting}>
-                <Box>
-                  <Input
-                    value={projectName}
-                    placeholder='Project Name'
-                    className={styles.NameInput}
-                    onChange={(e: any) => setProjectName(e.target.value)}
-                  />
-
-                  <Box className={styles.ScreenSizes}>
-                    <DesktopWindowsOutlinedIcon />
-                    <AdUnitsOutlinedIcon />
-                    <AspectRatioOutlinedIcon />
-                  </Box>
-                </Box>
-                <Box>
-                  <Box className={styles.HandelPart}>
-                    <Box className={styles.SettingAllSide}>
-                      <PaletteOutlinedIcon />
-                      <Typography variant='h6' color={"#FFFFFF"}>
-                        Background
-                      </Typography>
-                      <Input
-                        type='color'
-                        value={""}
-                        className={styles.ColorPicker}
-                      />
-                    </Box>
-                    <FormSelect
-                      label=' Framerate'
-                      icon={<CropFreeOutlinedIcon />}
-                      value={age}
-                      onChange={handleChange}
-                      data={[
-                        {
-                          label: "24 fps",
-                          value: 24,
-                        },
-                        {
-                          label: "25 fps",
-                          value: 25,
-                        },
-                        {
-                          label: "30 fps",
-                          value: 30,
-                        },
-                        {
-                          label: "50 fps",
-                          value: 50,
-                        },
-                      ]}
+            <Box className={styles.AfterUploadMainContent}>
+              <Box className={styles.AfterUpload}>
+                <Box className={styles.LeftSideSetting}>
+                  <Box>
+                    <Input
+                      value={projectName}
+                      placeholder='Project Name'
+                      className={styles.NameInput}
+                      onChange={(e: any) => setProjectName(e.target.value)}
                     />
 
-                    <Box
-                      sx={{
-                        alignItems: "flex-start !important",
-                      }}
-                      className={styles.SettingAllSide}>
-                      <SubtitlesOutlinedIcon />
-                      <Typography variant='h6' color={"#FFFFFF"}>
-                        Subtitles:
-                      </Typography>
-                      <FormControl>
-                        <RadioGroup
-                          aria-labelledby='demo-radio-buttons-group-label'
-                          defaultValue='Generate-New'
-                          name='radio-buttons-group'>
-                          <FormControlLabel
-                            value='Generate-New'
-                            sx={{
-                              "& .MuiFormControlLabel-label": {
-                                fontSize: "20px",
-                                lineHeight: "24px",
-                              },
-                            }}
-                            control={
-                              <Radio
-                                sx={{
-                                  color: "#FFFFFF",
-                                  "&.Mui-checked": {
+                    <Box className={styles.ScreenSizes}>
+                      <DesktopWindowsOutlinedIcon
+                        onClick={() => setSelectScreenSize("desktop")}
+                        sx={{
+                          cursor: "pointer",
+                          color:
+                            selectScreenSize === "desktop"
+                              ? "#655095"
+                              : ("#fff" as any),
+                        }}
+                      />
+                      <AdUnitsOutlinedIcon
+                        onClick={() => setSelectScreenSize("mobile")}
+                        sx={{
+                          cursor: "pointer",
+                          color:
+                            selectScreenSize === "mobile"
+                              ? "#655095"
+                              : ("#fff" as any),
+                        }}
+                      />
+                      <AspectRatioOutlinedIcon
+                        onClick={() => setSelectScreenSize("dynamicRatio")}
+                        sx={{
+                          cursor: "pointer",
+                          color:
+                            selectScreenSize === "dynamicRatio"
+                              ? "#655095"
+                              : ("#fff" as any),
+                        }}
+                      />
+
+                      {selectScreenSize === "dynamicRatio" && (
+                        <>
+                          <Box className={styles.BoxRatio}>
+                            <Typography variant='h1'>W</Typography>
+                            <Input type='number' />
+                          </Box>
+                          <Box className={styles.BoxRatio}>
+                            <Typography variant='h1'>H</Typography>
+                            <Input type='number' />
+                          </Box>
+                        </>
+                      )}
+                    </Box>
+                  </Box>
+                  <Box>
+                    <Box className={styles.HandelPart}>
+                      <Box className={styles.SettingAllSide}>
+                        <PaletteOutlinedIcon />
+                        <Typography variant='h6' color={"#FFFFFF"}>
+                          Background
+                        </Typography>
+                        <Input
+                          type='color'
+                          value={""}
+                          className={styles.ColorPicker}
+                        />
+                      </Box>
+                      <FormSelect
+                        label=' Framerate'
+                        icon={<CropFreeOutlinedIcon />}
+                        value={age}
+                        onChange={handleChange}
+                        data={[
+                          {
+                            label: "24 fps",
+                            value: 24,
+                          },
+                          {
+                            label: "25 fps",
+                            value: 25,
+                          },
+                          {
+                            label: "30 fps",
+                            value: 30,
+                          },
+                          {
+                            label: "50 fps",
+                            value: 50,
+                          },
+                        ]}
+                      />
+
+                      <Box
+                        sx={{
+                          alignItems: "flex-start !important",
+                        }}
+                        className={styles.SettingAllSide}>
+                        <SubtitlesOutlinedIcon />
+                        <Typography variant='h6' color={"#FFFFFF"}>
+                          Subtitles:
+                        </Typography>
+                        <FormControl>
+                          <RadioGroup
+                            aria-labelledby='demo-radio-buttons-group-label'
+                            defaultValue='Generate-New'
+                            name='radio-buttons-group'>
+                            <FormControlLabel
+                              value='Generate-New'
+                              sx={{
+                                "& .MuiFormControlLabel-label": {
+                                  fontSize: "20px",
+                                  lineHeight: "24px",
+                                },
+                              }}
+                              control={
+                                <Radio
+                                  sx={{
                                     color: "#FFFFFF",
-                                  },
-                                }}
-                              />
-                            }
-                            label='Generate New'
-                          />
-                          <FormControlLabel
-                            value='UseSRT'
-                            sx={{
-                              "& .MuiFormControlLabel-label": {
-                                fontSize: "20px",
-                                lineHeight: "24px",
-                              },
-                            }}
-                            control={
-                              <Radio
-                                sx={{
-                                  color: "#FFFFFF",
-                                  "&.Mui-checked": {
+                                    "&.Mui-checked": {
+                                      color: "#FFFFFF",
+                                    },
+                                  }}
+                                />
+                              }
+                              label='Generate New'
+                            />
+                            <FormControlLabel
+                              value='UseSRT'
+                              sx={{
+                                "& .MuiFormControlLabel-label": {
+                                  fontSize: "20px",
+                                  lineHeight: "24px",
+                                },
+                              }}
+                              control={
+                                <Radio
+                                  sx={{
                                     color: "#FFFFFF",
-                                  },
-                                }}
-                              />
-                            }
-                            label='Use SRT'
-                          />
-                        </RadioGroup>
-                      </FormControl>
+                                    "&.Mui-checked": {
+                                      color: "#FFFFFF",
+                                    },
+                                  }}
+                                />
+                              }
+                              label='Use SRT'
+                            />
+                          </RadioGroup>
+                        </FormControl>
+                      </Box>
                     </Box>
                   </Box>
                 </Box>
+                <Box className={styles.RightSideSetting}>
+                  <Box
+                    width={selectScreenSize === "mobile" ? "207px" : "207px"}
+                    height={selectScreenSize === "mobile" ? "364px" : "207px"}
+                    bgcolor={"#CFBBFB"}
+                  />
+                </Box>
               </Box>
-              <Box className={styles.RightSideSetting}>
-                <Box width={"207px"} height={"364px"} bgcolor={"#CFBBFB"}></Box>
-                <Button
-                  variant='outlined'
-                  className={styles.GenerateButton}
-                  onClick={createProject}
-                  endIcon={<ArrowForwardOutlinedIcon />}
-                  autoFocus>
-                  GENERATE
-                </Button>
-              </Box>
+              <Button
+                variant='primary'
+                sx={{
+                  marginTop: "28px",
+                  paddingY: "2px ",
+                  textTransform: "uppercase",
+                  height: "31px",
+                  paddingX: "12px",
+                }}
+                onClick={createProject}
+                endIcon={
+                  <ArrowForwardOutlinedIcon width={"15px"} height={"15px"} />
+                }
+                autoFocus>
+                GENERATE
+              </Button>
             </Box>
           ) : (
             <Box className={styles.UploadBox}>
@@ -308,7 +364,7 @@ const Index = ({
                     {fileData?.name}
                   </Typography>
                 ) : loadingState === "upload" ? (
-                  <Button variant='outlined' autoFocus>
+                  <Button variant='primary' autoFocus>
                     Choose File
                   </Button>
                 ) : (
@@ -330,7 +386,7 @@ const Index = ({
               </Box>
 
               <Button
-                variant='outlined'
+                variant='primary'
                 className={styles.UploadButton}
                 onClick={() => {
                   if (loadingState === "uploaded") {

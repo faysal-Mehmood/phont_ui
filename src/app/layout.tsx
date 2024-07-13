@@ -25,26 +25,28 @@ export default function RootLayout({
 }>) {
   return (
     // <Provider store={store}>
-    <html lang="en">
-      <body className={inter.className}>
-        <SideBar />
-        <AppRouterCacheProvider>
-          <ThemeProvider theme={theme}>{children} </ThemeProvider>
-          <ToastContainer
-            position="bottom-right"
-            autoClose={5000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="light"
-          />
-        </AppRouterCacheProvider>
-      </body>
-    </html>
+    <ThemeProvider theme={theme}>
+      <html lang='en'>
+        <body className={inter.className}>
+          <SideBar />
+          <AppRouterCacheProvider>
+            {children}
+            <ToastContainer
+              position='bottom-right'
+              autoClose={5000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme='light'
+            />
+          </AppRouterCacheProvider>
+        </body>
+      </html>
+    </ThemeProvider>
     // </Provider>
   );
 }

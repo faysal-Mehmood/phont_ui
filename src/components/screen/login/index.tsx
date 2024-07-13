@@ -6,6 +6,8 @@ import { useRouter } from "next/navigation";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { Button } from "@/utils/button/Button";
+import { Box } from "@mui/material";
 
 const LoginForm = () => {
   const router = useRouter();
@@ -19,7 +21,7 @@ const LoginForm = () => {
           headers: {
             "Content-Type": "application/json",
           },
-        }
+        },
       );
       console.log("Login successful:", response.data);
       if (response.data.success) {
@@ -42,34 +44,32 @@ const LoginForm = () => {
         password: "",
       }}
       validationSchema={SigninSchema}
-      onSubmit={onSubmit}
-    >
+      onSubmit={onSubmit}>
       {({ isSubmitting, values }) => (
         <Form style={{ paddingTop: "100px" }}>
-          <div className="inputWrapper">
+          <div className='inputWrapper'>
             <Field
-              type="text"
-              id="email"
-              name="email"
-              placeholder="Name"
-              className="inputBox"
+              type='text'
+              id='email'
+              name='email'
+              placeholder='Name'
+              className='inputBox'
             />
-            <ErrorMessage name="email" component="p" className="error" />
+            <ErrorMessage name='email' component='p' className='error' />
           </div>
 
-          <div className="inputWrapper">
+          <div className='inputWrapper'>
             <Field
               type={showPassword ? "text" : "password"}
-              id="password"
-              name="password"
-              placeholder="Password"
-              className="inputBox"
+              id='password'
+              name='password'
+              placeholder='Password'
+              className='inputBox'
             />
             {values.password && (
               <span
-                className="show-password"
-                onClick={() => setShowPassword(!showPassword)}
-              >
+                className='show-password'
+                onClick={() => setShowPassword(!showPassword)}>
                 <Image
                   src={
                     showPassword
@@ -78,21 +78,30 @@ const LoginForm = () => {
                   }
                   width={20}
                   height={20}
-                  alt="eye-icon"
+                  alt='eye-icon'
                 />
               </span>
             )}
-            <div className="forget-paswword">
+            <div className='forget-paswword'>
               <div>
-                <ErrorMessage name="password" component="p" className="error" />
+                <ErrorMessage name='password' component='p' className='error' />
               </div>
               <span>Forget password?</span>
             </div>
           </div>
 
-          <button type="submit" className="submit-btn" disabled={isSubmitting}>
-            Login
-          </button>
+          <Box className='submit-btn'>
+            <Button
+              type='submit'
+              variant='secondary'
+              disabled={isSubmitting}
+              sx={{
+                width: "133px",
+                marginTop: "33px",
+              }}>
+              Login
+            </Button>
+          </Box>
         </Form>
       )}
     </Formik>

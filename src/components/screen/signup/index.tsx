@@ -6,6 +6,8 @@ import { SignUpSchema } from "@/helper/validation/authValidation";
 import Image from "next/image";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { Button } from "@/utils/button/Button";
+import { Box } from "@mui/material";
 
 const SignUpForm = ({ setActiveTab }: any) => {
   const [password, setpassword] = useState(false);
@@ -19,7 +21,7 @@ const SignUpForm = ({ setActiveTab }: any) => {
           headers: {
             "Content-Type": "application/json",
           },
-        }
+        },
       );
       console.log(response.data);
       if (response?.data?.success) {
@@ -42,43 +44,41 @@ const SignUpForm = ({ setActiveTab }: any) => {
         confirmPassword: "",
       }}
       validationSchema={SignUpSchema}
-      onSubmit={onSubmit}
-    >
+      onSubmit={onSubmit}>
       {({ isSubmitting, values }) => (
-        <Form className="space-y-4">
-          <div className="inputWrapper">
+        <Form className='space-y-4'>
+          <div className='inputWrapper'>
             <Field
-              type="text"
-              id="username"
-              name="username"
-              placeholder="Name"
-              className="inputBox"
+              type='text'
+              id='username'
+              name='username'
+              placeholder='Name'
+              className='inputBox'
             />
-            <ErrorMessage name="username" component="p" className="error" />
+            <ErrorMessage name='username' component='p' className='error' />
           </div>
-          <div className="inputWrapper">
+          <div className='inputWrapper'>
             <Field
-              type="email"
-              id="email"
-              name="email"
-              placeholder="Mail"
-              className="inputBox"
+              type='email'
+              id='email'
+              name='email'
+              placeholder='Mail'
+              className='inputBox'
             />
-            <ErrorMessage name="email" component="p" className="error" />
+            <ErrorMessage name='email' component='p' className='error' />
           </div>
-          <div className="inputWrapper">
+          <div className='inputWrapper'>
             <Field
               type={password ? "text" : "password"}
-              id="password"
-              name="password"
-              placeholder="Password"
-              className="inputBox"
+              id='password'
+              name='password'
+              placeholder='Password'
+              className='inputBox'
             />
             {values.password && (
               <span
-                className="show-password"
-                onClick={() => setpassword(!password)}
-              >
+                className='show-password'
+                onClick={() => setpassword(!password)}>
                 <Image
                   src={
                     password
@@ -87,25 +87,24 @@ const SignUpForm = ({ setActiveTab }: any) => {
                   }
                   width={20}
                   height={20}
-                  alt="eye-icon"
+                  alt='eye-icon'
                 />
               </span>
             )}
-            <ErrorMessage name="password" component="p" className="error" />
+            <ErrorMessage name='password' component='p' className='error' />
           </div>
-          <div className="inputWrapper">
+          <div className='inputWrapper'>
             <Field
               type={confirmPassword ? "text" : "password"}
-              id="confirmPassword"
-              name="confirmPassword"
-              placeholder="Confirm Password"
-              className="inputBox"
+              id='confirmPassword'
+              name='confirmPassword'
+              placeholder='Confirm Password'
+              className='inputBox'
             />
             {values.confirmPassword && (
               <span
-                className="show-password"
-                onClick={() => setConfirmPassword(!confirmPassword)}
-              >
+                className='show-password'
+                onClick={() => setConfirmPassword(!confirmPassword)}>
                 <Image
                   src={
                     confirmPassword
@@ -114,20 +113,28 @@ const SignUpForm = ({ setActiveTab }: any) => {
                   }
                   width={20}
                   height={20}
-                  alt="eye-icon"
+                  alt='eye-icon'
                 />
               </span>
             )}
             <ErrorMessage
-              name="confirmPassword"
-              component="p"
-              className="error"
+              name='confirmPassword'
+              component='p'
+              className='error'
             />
           </div>
-
-          <button type="submit" className="submit-btn" disabled={isSubmitting}>
-            Sign Up
-          </button>
+          <Box className='submit-btn'>
+            <Button
+              type='submit'
+              variant='secondary'
+              disabled={isSubmitting}
+              sx={{
+                width: "133px",
+                marginTop: "68px",
+              }}>
+              Sign Up
+            </Button>
+          </Box>
         </Form>
       )}
     </Formik>

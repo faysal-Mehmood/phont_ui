@@ -40,6 +40,7 @@ export const FormSelect = (props: selectProps) => {
         value={value}
         onChange={onChange}
         sx={{
+          color: "#FFFFFF",
           "& .MuiSelect-select": {
             padding: "4px 12px",
             color: "#FFFFFF",
@@ -50,6 +51,11 @@ export const FormSelect = (props: selectProps) => {
 
           "& .MuiSvgIcon-root": {
             color: "#FFFFFF",
+          },
+          "&.MuiPaper-root": {
+            ".MuiList-root .MuiMenuItem-root": {
+              color: "#FFFFFF",
+            },
           },
         }}>
         {data?.map(
