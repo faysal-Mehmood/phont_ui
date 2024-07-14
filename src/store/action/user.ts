@@ -4,7 +4,7 @@ import { postRequest, getRequest } from "@/lib/request";
 
 export const loginAction = async (data: any) => {
   const result = await postRequest("/auth/login", data);
-  console.log("result", result);
+  return result;
 };
 
 export const signupAction = async (data: any): Promise<any> => {

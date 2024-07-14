@@ -44,3 +44,13 @@ export const deleteRequest = async (url: string) => {
     return error;
   }
 };
+export const patchRequest = async (url: string, data: any) => {
+  try {
+    const response = await axiosInstance.patch(url, data);
+    return response.data;
+  } catch (error: any) {
+    console.error("PATCH request error:", error);
+    toast.error(error?.response?.data?.message);
+    return error;
+  }
+};

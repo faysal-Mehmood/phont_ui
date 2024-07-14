@@ -1,14 +1,18 @@
-// import { dispatch } from "../store";
-import { useAppDispatch } from "../hooks";
-import { postRequest, getRequest, deleteRequest } from "@/lib/request";
+import {
+  postRequest,
+  getRequest,
+  deleteRequest,
+  patchRequest,
+} from "@/lib/request";
 import {
   addprojectReducer,
   deleteprojectReducer,
+  setActiveProjectReducer,
   setAllprojectsReducer,
+  updateProjectReducer,
 } from "../reducer/project";
 import store from "../store";
 import { toast } from "react-toastify";
-// import { setContractDetailsReducer } from "../reducer/user"; // Remove .ts extension here
 
 export const getAllProjectDetaiLsAction = async () => {
   const result = await getRequest("/project");
@@ -35,6 +39,28 @@ export const deleteProjectAction = async (projectId: any) => {
   if (result.success) {
     store.dispatch(deleteprojectReducer(projectId));
     toast.success(result?.message);
+    return result;
+  }
+};
+
+export const updateProjectAction = async (projectId: string, data: object) => {
+  const result = await patchRequest(`/project/${projectId}`, data);
+  if (result.success) {
+    store.dispatch(updateProjectReducer(projectId));
+    toast.success(result?.message);
+    return result;
+  }
+};
+
+export const generateSubtitleAction = async (projectId: string) => {
+  const result = await getRequest(`/project/generate-subtitles/${projectId}`);
+  return result;
+};
+
+export const getSingleProjectAction = async (id: string) => {
+  const result = await getRequest(`/project${id}`);
+  if (result.success) {
+    store.dispatch(setActiveProjectReducer(result.data));
     return result;
   }
 };
