@@ -33,7 +33,7 @@ const Index = ({ setOpenProjectModel }: UploadModuleProps) => {
       formData.append("video", ui?.editData?.fileData);
       const auth_token = localStorage.getItem("auth_token");
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/project/upload-video/${res?.data?._id}`,
+        `http://20.218.120.21:8000/api/project/upload-video/${res?.data?._id}`,
         formData,
         {
           headers: {
