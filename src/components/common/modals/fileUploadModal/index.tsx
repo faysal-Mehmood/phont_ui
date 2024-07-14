@@ -1,127 +1,85 @@
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 import Image from "next/image";
-import {
-  Box,
-  CircularProgress,
-  Dialog,
-  DialogContent,
-  FormControl,
-  FormControlLabel,
-  IconButton,
-  Input,
-  InputLabel,
-  MenuItem,
-  Radio,
-  RadioGroup,
-  Select,
-  SelectChangeEvent,
-  Typography,
-} from "@mui/material";
+import { Box, Dialog, DialogContent, IconButton } from "@mui/material";
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
-import FileUploadOutlinedIcon from "@mui/icons-material/FileUploadOutlined";
-import ArrowForwardOutlinedIcon from "@mui/icons-material/ArrowForwardOutlined";
-import DesktopWindowsOutlinedIcon from "@mui/icons-material/DesktopWindowsOutlined";
-import AdUnitsOutlinedIcon from "@mui/icons-material/AdUnitsOutlined";
-import AspectRatioOutlinedIcon from "@mui/icons-material/AspectRatioOutlined";
-import PaletteOutlinedIcon from "@mui/icons-material/PaletteOutlined";
-import CropFreeOutlinedIcon from "@mui/icons-material/CropFreeOutlined";
-import SubtitlesOutlinedIcon from "@mui/icons-material/SubtitlesOutlined";
-import FileDownloadDoneOutlinedIcon from "@mui/icons-material/FileDownloadDoneOutlined";
 
 import { uploadModule } from "./uploadModule.style";
 import styles from "./style.module.scss";
+import GenerateProject from "./uploader/generateProject";
+import UploadFile from "./uploader/uploadFile";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/store/store";
+import { setActiveUiState, setOpenFormReducer } from "@/store/reducer/ui";
+import {
+  createprojectDetailAction,
+  // uploadprojectVideoAction,
+} from "@/store/action/project";
 import axios from "axios";
-import { FormSelect } from "@/utils/formSelect/FormSelect";
-import { Button } from "@/utils/button/Button";
+import { addprojectReducer } from "@/store/reducer/project";
+import { toast } from "react-toastify";
+import LoadingSubtitle from "./uploader/loading";
 
 interface UploadModuleProps {
-  openModel: boolean;
-  setOpenModel: React.Dispatch<React.SetStateAction<boolean>>;
-  createProject: any;
-  setProjectName: (value: string) => void;
-  projectName: string;
-  uploadFile: boolean;
-  setUploadFile: (value: boolean) => void;
-  setVideoData: (value: any) => void;
-  setOpenPorjectModel: (value: boolean) => void;
-  loadingState: string;
-  setloadingState: (value: string) => void;
+  setOpenProjectModel: (value: boolean) => void;
 }
 
-const Index = ({
-  openModel,
-  setOpenModel,
-  createProject,
-  setProjectName,
-  projectName,
-  setUploadFile,
-  uploadFile,
-  setVideoData,
-  setOpenPorjectModel,
-  setloadingState,
-  loadingState,
-}: UploadModuleProps) => {
-  const videoRef = useRef<any>(null);
-  const [age, setAge] = React.useState("");
-
-  const [fileData, setfileData] = React.useState<any>("");
-  const [selectScreenSize, setSelectScreenSize] = React.useState("mobile");
-
-  const handleChange = (event: SelectChangeEvent) => {
-    setAge(event.target.value as string);
-  };
-  const uploadVideo = async () => {
-    if (fileData?.type === "video/mp4") {
+const Index = ({ setOpenProjectModel }: UploadModuleProps) => {
+  const ui = useSelector((state: RootState) => state.ui);
+  const dispatch = useDispatch();
+  const isModelOpen = ui?.openForm;
+  const uploadvideoGeenratSubtitle = async (res: any, data: object) => {
+    try {
       const formData = new FormData();
-      formData.append("video", fileData);
-      setloadingState("loading");
-      try {
-        const auth_token = localStorage.getItem("auth_token");
-        const response = await axios.post(
-          "http://20.218.120.21:8000/api/project/upload-video/668ee4fff68ad06cda578550",
-          formData,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data", // Changed to multipart/form-data
-              Authorization: `Bearer ${auth_token}`,
-            },
+      formData.append("video", ui?.editData?.fileData);
+      const auth_token = localStorage.getItem("auth_token");
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/project/upload-video/${res?.data?._id}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${auth_token}`,
           },
-        );
-        console.log(response.data);
-        if (response.data.success) {
-          setloadingState("complete");
-          setVideoData(response.data?.data);
         }
-      } catch (error: any) {
-        console.error("Response Error:", error.response.data);
+      );
+      console.log(response);
+      if (response.data.success) {
+        dispatch(addprojectReducer(data));
+        dispatch(setOpenFormReducer(false));
+        setOpenProjectModel(true);
+        toast.success(response?.data?.message);
       }
+    } catch (error: any) {
+      toast.error(
+        "Response Error:",
+        error.response?.data?.message || error?.message
+      );
     }
   };
-  const handleUploadVideo = () => {
-    videoRef.current?.click();
-  };
-  const handleVideoUpload = async (event: any) => {
-    console.log("eve", event.target.files[0]);
-    const videodata = event.target.files[0];
-    if (videodata?.type === "video/mp4") {
-      setfileData(videodata);
-      setloadingState("uploaded");
-    } else {
-      console.error("Invalid file type. Please upload a video file.");
+  const generateVideoSubtitle = async (data: any) => {
+    const res = await createprojectDetailAction(data);
+    if (res.success) {
+      dispatch(
+        setActiveUiState({ uiState: "generate-subtitle", data: ui?.editData })
+      );
+      setTimeout(() => {
+        uploadvideoGeenratSubtitle(res, data);
+      }, 4000);
     }
   };
 
   const handleClose = () => {
-    setOpenModel(false);
+    dispatch(setOpenFormReducer(false));
   };
   return (
     <React.Fragment>
       <Dialog
-        open={openModel}
+        open={ui?.openForm}
         onClose={handleClose}
-        sx={uploadModule({ uploadFile })}>
+        sx={uploadModule({ isModelOpen })}
+      >
         <DialogContent className={styles.UploadDetailModel}>
-          <Box marginTop={uploadFile ? "20px" : ""}>
+          <Box marginTop={isModelOpen ? "20px" : ""}>
             <Image
               src={"/images/Phont_Logo_Weiss.svg"}
               alt={"logo"}
@@ -131,275 +89,22 @@ const Index = ({
             <IconButton
               className={styles.BackArrowButton}
               onClick={() => {
-                setOpenModel(false);
-                setloadingState("upload");
-              }}>
+                dispatch(setOpenFormReducer(false));
+                setOpenProjectModel(true);
+              }}
+            >
               <ArrowBackOutlinedIcon />
             </IconButton>
           </Box>
-          {uploadFile ? (
-            <Box className={styles.AfterUploadMainContent}>
-              <Box className={styles.AfterUpload}>
-                <Box className={styles.LeftSideSetting}>
-                  <Box>
-                    <Input
-                      value={projectName}
-                      placeholder='Project Name'
-                      className={styles.NameInput}
-                      onChange={(e: any) => setProjectName(e.target.value)}
-                    />
-
-                    <Box className={styles.ScreenSizes}>
-                      <DesktopWindowsOutlinedIcon
-                        onClick={() => setSelectScreenSize("desktop")}
-                        sx={{
-                          cursor: "pointer",
-                          color:
-                            selectScreenSize === "desktop"
-                              ? "#655095"
-                              : ("#fff" as any),
-                        }}
-                      />
-                      <AdUnitsOutlinedIcon
-                        onClick={() => setSelectScreenSize("mobile")}
-                        sx={{
-                          cursor: "pointer",
-                          color:
-                            selectScreenSize === "mobile"
-                              ? "#655095"
-                              : ("#fff" as any),
-                        }}
-                      />
-                      <AspectRatioOutlinedIcon
-                        onClick={() => setSelectScreenSize("dynamicRatio")}
-                        sx={{
-                          cursor: "pointer",
-                          color:
-                            selectScreenSize === "dynamicRatio"
-                              ? "#655095"
-                              : ("#fff" as any),
-                        }}
-                      />
-
-                      {selectScreenSize === "dynamicRatio" && (
-                        <>
-                          <Box className={styles.BoxRatio}>
-                            <Typography variant='h1'>W</Typography>
-                            <Input type='number' />
-                          </Box>
-                          <Box className={styles.BoxRatio}>
-                            <Typography variant='h1'>H</Typography>
-                            <Input type='number' />
-                          </Box>
-                        </>
-                      )}
-                    </Box>
-                  </Box>
-                  <Box>
-                    <Box className={styles.HandelPart}>
-                      <Box className={styles.SettingAllSide}>
-                        <PaletteOutlinedIcon />
-                        <Typography variant='h6' color={"#FFFFFF"}>
-                          Background
-                        </Typography>
-                        <Input
-                          type='color'
-                          value={""}
-                          className={styles.ColorPicker}
-                        />
-                      </Box>
-                      <FormSelect
-                        label=' Framerate'
-                        icon={<CropFreeOutlinedIcon />}
-                        value={age}
-                        onChange={handleChange}
-                        data={[
-                          {
-                            label: "24 fps",
-                            value: 24,
-                          },
-                          {
-                            label: "25 fps",
-                            value: 25,
-                          },
-                          {
-                            label: "30 fps",
-                            value: 30,
-                          },
-                          {
-                            label: "50 fps",
-                            value: 50,
-                          },
-                        ]}
-                      />
-
-                      <Box
-                        sx={{
-                          alignItems: "flex-start !important",
-                        }}
-                        className={styles.SettingAllSide}>
-                        <SubtitlesOutlinedIcon />
-                        <Typography variant='h6' color={"#FFFFFF"}>
-                          Subtitles:
-                        </Typography>
-                        <FormControl>
-                          <RadioGroup
-                            aria-labelledby='demo-radio-buttons-group-label'
-                            defaultValue='Generate-New'
-                            name='radio-buttons-group'>
-                            <FormControlLabel
-                              value='Generate-New'
-                              sx={{
-                                "& .MuiFormControlLabel-label": {
-                                  fontSize: "20px",
-                                  lineHeight: "24px",
-                                },
-                              }}
-                              control={
-                                <Radio
-                                  sx={{
-                                    color: "#FFFFFF",
-                                    "&.Mui-checked": {
-                                      color: "#FFFFFF",
-                                    },
-                                  }}
-                                />
-                              }
-                              label='Generate New'
-                            />
-                            <FormControlLabel
-                              value='UseSRT'
-                              sx={{
-                                "& .MuiFormControlLabel-label": {
-                                  fontSize: "20px",
-                                  lineHeight: "24px",
-                                },
-                              }}
-                              control={
-                                <Radio
-                                  sx={{
-                                    color: "#FFFFFF",
-                                    "&.Mui-checked": {
-                                      color: "#FFFFFF",
-                                    },
-                                  }}
-                                />
-                              }
-                              label='Use SRT'
-                            />
-                          </RadioGroup>
-                        </FormControl>
-                      </Box>
-                    </Box>
-                  </Box>
-                </Box>
-                <Box className={styles.RightSideSetting}>
-                  <Box
-                    width={selectScreenSize === "mobile" ? "207px" : "207px"}
-                    height={selectScreenSize === "mobile" ? "364px" : "207px"}
-                    bgcolor={"#CFBBFB"}
-                  />
-                </Box>
-              </Box>
-              <Button
-                variant='primary'
-                sx={{
-                  marginTop: "28px",
-                  paddingY: "2px ",
-                  textTransform: "uppercase",
-                  height: "31px",
-                  paddingX: "12px",
-                }}
-                onClick={createProject}
-                endIcon={
-                  <ArrowForwardOutlinedIcon width={"15px"} height={"15px"} />
-                }
-                autoFocus>
-                GENERATE
-              </Button>
-            </Box>
+          {ui.uiState &&
+          ["upload", "uploaded", "loading", "complete"]?.includes(
+            ui.uiState
+          ) ? (
+            <UploadFile loadingState={ui.uiState} editFormData={ui?.editData} />
+          ) : ui.uiState === "create-project" ? (
+            <GenerateProject createProjectHandler={generateVideoSubtitle} />
           ) : (
-            <Box className={styles.UploadBox}>
-              <Box
-                className={styles.DashboardDetailPanel}
-                onClick={handleUploadVideo}>
-                {loadingState === "loading" ? (
-                  <Box sx={{ display: "flex" }}>
-                    <CircularProgress
-                      size={"lg"}
-                      sx={{ width: "80px", height: "80px", color: "#D2BEFF" }}
-                    />
-                  </Box>
-                ) : loadingState === "complete" ? (
-                  <FileDownloadDoneOutlinedIcon
-                    sx={{
-                      width: "100px",
-                      height: "100px",
-                      color: "#D2BEFF",
-                    }}
-                  />
-                ) : (
-                  <FileUploadOutlinedIcon
-                    sx={{
-                      width: "100px",
-                      height: "110px",
-                    }}
-                  />
-                )}
-
-                <input
-                  type='file'
-                  name='videofile'
-                  ref={videoRef}
-                  onChange={handleVideoUpload}
-                  style={{ display: "none" }}
-                />
-                {loadingState === "loading" || loadingState === "uploaded" ? (
-                  <Typography
-                    variant='h3'
-                    fontWeight={500}
-                    fontSize={20}
-                    lineHeight={"24px"}
-                    color={"#D2BEFF"}>
-                    {fileData?.name}
-                  </Typography>
-                ) : loadingState === "upload" ? (
-                  <Button variant='primary' autoFocus>
-                    Choose File
-                  </Button>
-                ) : (
-                  ""
-                )}
-                <Typography
-                  variant='body1'
-                  fontSize={20}
-                  lineHeight={"24px"}
-                  color={"#D2BEFF"}>
-                  {loadingState === "loading"
-                    ? "Loading..."
-                    : loadingState === "complete"
-                    ? "Upload Complete"
-                    : loadingState === "upload"
-                    ? "or drag and drop"
-                    : ""}
-                </Typography>
-              </Box>
-
-              <Button
-                variant='primary'
-                className={styles.UploadButton}
-                onClick={() => {
-                  if (loadingState === "uploaded") {
-                    uploadVideo();
-                  } else {
-                    handleClose();
-                    setOpenPorjectModel(false);
-                  }
-                }}
-                autoFocus>
-                {loadingState === "complete" ? "Next" : "Upload"}
-              </Button>
-            </Box>
+            <LoadingSubtitle />
           )}
         </DialogContent>
       </Dialog>

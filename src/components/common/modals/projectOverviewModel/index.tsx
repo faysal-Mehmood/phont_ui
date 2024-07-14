@@ -1,94 +1,40 @@
 "use client";
 import * as React from "react";
-import axios from "axios";
 import Dialog from "@mui/material/Dialog";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import DialogContent from "@mui/material/DialogContent";
 import styles from "./projectOverviewModel.module.scss";
 import Image from "next/image";
-import { Avatar, Box, Card, Typography } from "@mui/material";
+import { Avatar, Box, Typography } from "@mui/material";
 import { SideBarData } from "@/data/sidebar";
 import Link from "next/link";
 import DeletePopup from "../deletePopup";
 import FileUploadModal from "../fileUploadModal";
-import { toast } from "react-toastify";
 import { Button } from "@/utils/button/Button";
+import { deleteProjectAction } from "@/store/action/project";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/store/store";
+import { setActiveUiState, setOpenFormReducer } from "@/store/reducer/ui";
 
-export default function ProjectOverviewModel({
-  setOpenModel,
-  openModel,
-  setVideoData,
-}: any) {
+export default function ProjectOverviewModel({ setOpenModel, openModel }: any) {
   const [openPopup, setOpenPopup] = React.useState(false);
-  const [uploadFile, setUploadFile] = React.useState(true);
-  const [openUploadModal, setOpenUploadModal] = React.useState(false);
-  const [projectName, setProjectName] = React.useState("");
-  const [loadingState, setloadingState] = React.useState("upload");
-  const [seletecproject, setSelectedProject] = React.useState<any>({});
 
-  const [allProjects, setAllProjects] = React.useState([]);
+  const [seletecproject, setSelectedProject] = React.useState<any>({});
+  const { projects } = useSelector((state: RootState) => state.project);
+
+  const dispatch = useDispatch();
+  // all functions
   const handleClose = () => {
     setOpenModel(false);
   };
 
-  const deleteProject = () => {
-    console.log(seletecproject);
-    setAllProjects(
-      allProjects?.filter((f: any) => f._id !== seletecproject?._id),
-    );
-    toast.success("Project has been delete successfully");
-    setOpenPopup(false);
-  };
-  const createProject = async () => {
-    try {
-      const auth_token = localStorage.getItem("auth_token");
-      const response: any = await axios.post(
-        "http://20.218.120.21:8000/api/project",
-        { name: projectName },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${auth_token}`,
-          },
-        },
-      );
-      if (response?.data?.success) {
-        setUploadFile(false);
-      }
-    } catch (error: any) {
-      console.error("Error:", error);
-      toast.error(error?.response?.data?.message);
+  const deleteProject = async () => {
+    const res = await deleteProjectAction(seletecproject?._id);
+    if (res.success) {
+      setOpenPopup(false);
     }
   };
-
-  const getAllProjectDetails = async () => {
-    try {
-      const auth_token = localStorage.getItem("auth_token");
-      const response = await axios.get(
-        "http://20.218.120.21:8000/api/project",
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${auth_token}`,
-          },
-        },
-      );
-      if (response.data?.success) {
-        setAllProjects(response?.data?.data);
-      }
-
-      console.log(response.data);
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  };
-
-  React.useEffect(() => {
-    if (openModel) {
-      getAllProjectDetails();
-    }
-  }, [openModel]);
 
   return (
     <>
@@ -104,7 +50,8 @@ export default function ProjectOverviewModel({
               maxWidth: "1200px",
               width: "1200px",
             },
-          }}>
+          }}
+        >
           <DialogContent className={styles.ProfileDetailModel}>
             <div className={styles.LeftProfilePanel}>
               <div className={styles.CreateButtonlogo}>
@@ -116,20 +63,22 @@ export default function ProjectOverviewModel({
                 />
 
                 <Button
-                  variant='primary'
+                  variant="primary"
                   onClick={() => {
-                    setOpenUploadModal(true);
-                    setUploadFile(true);
+                    dispatch(setOpenFormReducer(true));
+                    dispatch(setActiveUiState({ uiState: "upload", data: {} }));
+                    setOpenModel(false);
                   }}
                   sx={{
                     width: "150px",
                     marginTop: "57px",
-                  }}>
+                  }}
+                >
                   Create
                 </Button>
               </div>
               <Box className={styles.ProfileSettingIcons}>
-                <Avatar alt='Remy Sharp' src='/static/images/avatar/1.jpg' />
+                <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
                 {SideBarData?.userAbout?.map((item, index) => (
                   <Link key={index} href={item.url}>
                     {item.icon}
@@ -139,30 +88,33 @@ export default function ProjectOverviewModel({
             </div>
             <div className={styles.DashboardDetailPanel}>
               <Typography
-                variant='subtitle1'
+                variant="subtitle1"
                 fontWeight={400}
                 color={"#fff"}
-                marginBottom={"17px"}>
+                marginBottom={"17px"}
+              >
                 ! Welcome Back
               </Typography>
               <div className={styles.ProjectBoxWrapper}>
-                {allProjects ? (
-                  allProjects?.length ? (
-                    allProjects?.map((item: any, index) => (
+                {projects ? (
+                  projects?.length ? (
+                    projects?.map((item: any, index: number) => (
                       <div key={index} className={styles.ProjectDetailCard}>
                         <div
                           className={styles.ProjectBox}
                           onClick={() => {
-                            setOpenUploadModal(true);
-                            setloadingState("upload");
-                            setUploadFile(false);
-                          }}></div>
+                            // setOpenUploadModal(true);
+                            // setloadingState("upload");
+                            // setUploadFile(false);
+                          }}
+                        ></div>
                         <div className={styles.ProjectDescriptionpanel}>
                           <Typography
                             fontSize={"12px"}
-                            variant='body2'
+                            variant="body2"
                             fontWeight={400}
-                            color={"#fff"}>
+                            color={"#fff"}
+                          >
                             {item.name}
                           </Typography>
                           <div>
@@ -189,9 +141,10 @@ export default function ProjectOverviewModel({
 
                         <Typography
                           fontSize={"12px"}
-                          variant='body2'
+                          variant="body2"
                           fontWeight={400}
-                          color={"#fff"}>
+                          color={"#fff"}
+                        >
                           Date
                         </Typography>
                       </div>
@@ -213,19 +166,7 @@ export default function ProjectOverviewModel({
         setOpenPopup={setOpenPopup}
         deleteProject={deleteProject}
       />
-      <FileUploadModal
-        openModel={openUploadModal}
-        setOpenModel={setOpenUploadModal}
-        createProject={createProject}
-        setProjectName={setProjectName}
-        projectName={projectName}
-        setUploadFile={setUploadFile}
-        uploadFile={uploadFile}
-        setVideoData={setVideoData}
-        setOpenPorjectModel={setOpenModel}
-        setloadingState={setloadingState}
-        loadingState={loadingState}
-      />
+      <FileUploadModal setOpenProjectModel={setOpenModel} />
     </>
   );
 }
