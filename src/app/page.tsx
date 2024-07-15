@@ -4,6 +4,7 @@ import { useState } from "react";
 import LoginForm from "@/components/screen/login";
 import SignUpForm from "@/components/screen/signup";
 import FileDetailsModel from "@/components/fileDetailsModel";
+import CustomVideoPlayer from "@/components/customVideoPlayer";
 
 
 
@@ -43,8 +44,9 @@ export default function Home() {
           </div>
           {activetab === "login" && <LoginForm />}
           {activetab === "signup" && <SignUpForm />}
-          <FileDetailsModel />
         </div>
+        <FileDetailsModel />
+        <CustomVideoPlayer />
       </div>
     </main>
   );
