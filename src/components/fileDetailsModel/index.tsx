@@ -1,5 +1,5 @@
 import * as React from "react";
-import Button from "@/utils/button/Button";
+import { Button } from "@/utils/button/Button";
 import Dialog from "@mui/material/Dialog";
 import ArrowCircleLeftOutlinedIcon from "@mui/icons-material/ArrowCircleLeftOutlined";
 import TimerOutlinedIcon from "@mui/icons-material/TimerOutlined";

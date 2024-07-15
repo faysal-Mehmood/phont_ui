@@ -6,30 +6,19 @@ import { SignUpSchema } from "@/helper/validation/authValidation";
 import Image from "next/image";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { Button } from "@/utils/button/Button";
+import { Box } from "@mui/material";
+import { signupAction } from "@/store/action/user";
 
 const SignUpForm = ({ setActiveTab }: any) => {
   const [password, setpassword] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState(false);
   const onSubmit = async (values: any, { setSubmitting }: any) => {
-    try {
-      const response = await axios.post(
-        "http://20.218.120.21:8000/api/auth/signup",
-        values,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      console.log(response.data);
-      if (response?.data?.success) {
-        setActiveTab("login");
-        toast.success(response?.data?.message);
-      } else {
-        toast.error(response?.data?.message);
-      }
-    } catch (error) {
-      console.error("Error:", error);
+    const result = await signupAction(values);
+    console.log("res", result);
+    if (result?.success) {
+      setActiveTab("login");
+      toast.success(result?.message);
     }
     setSubmitting(false);
   };
@@ -124,10 +113,19 @@ const SignUpForm = ({ setActiveTab }: any) => {
               className="error"
             />
           </div>
-
-          <button type="submit" className="submit-btn" disabled={isSubmitting}>
-            Sign Up
-          </button>
+          <Box className="submit-btn">
+            <Button
+              type="submit"
+              variant="secondary"
+              disabled={isSubmitting}
+              sx={{
+                width: "133px",
+                marginTop: "68px",
+              }}
+            >
+              Sign Up
+            </Button>
+          </Box>
         </Form>
       )}
     </Formik>

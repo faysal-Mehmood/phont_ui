@@ -6,32 +6,19 @@ import { useRouter } from "next/navigation";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { Button } from "@/utils/button/Button";
+import { Box } from "@mui/material";
+import { loginAction } from "@/store/action/user";
 
 const LoginForm = () => {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const onSubmit = async (values: any, { setSubmitting }: any) => {
-    try {
-      const response = await axios.post(
-        "http://20.218.120.21:8000/api/auth/login",
-        values,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      console.log("Login successful:", response.data);
-      if (response.data.success) {
-        localStorage.setItem("auth_token", response?.data?.data?.token);
-        router.push("/basics");
-      }
-      // Handle successful login (e.g., redirect)
-    } catch (error) {
-      toast.error("Invalid  Email/Password");
-      console.error("Login error:", error);
-    } finally {
-      setSubmitting(false);
+    const result = await loginAction(values);
+    console.log("res", result);
+    if (result?.success) {
+      localStorage.setItem("auth_token", result?.data?.token);
+      router.push("/basics");
     }
   };
 
@@ -90,9 +77,19 @@ const LoginForm = () => {
             </div>
           </div>
 
-          <button type="submit" className="submit-btn" disabled={isSubmitting}>
-            Login
-          </button>
+          <Box className="submit-btn">
+            <Button
+              type="submit"
+              variant="secondary"
+              disabled={isSubmitting}
+              sx={{
+                width: "133px",
+                marginTop: "33px",
+              }}
+            >
+              Login
+            </Button>
+          </Box>
         </Form>
       )}
     </Formik>

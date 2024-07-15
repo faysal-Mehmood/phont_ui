@@ -72,106 +72,109 @@
     }
   }
 
-  .AfterUpload {
+  .AfterUploadMainContent {
     width: 934px;
-    height: 650px;
+    min-height: 650px;
     background: #30293a 0% 0% no-repeat padding-box;
     border-radius: 10px;
     opacity: 1;
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 24px;
     padding: 77px 97px 73px 64px;
-
-    .LeftSideSetting {
-      height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+    .AfterUpload {
+      width: 100%;
       display: flex;
-      flex-direction: column;
+      align-items: center;
       justify-content: space-between;
-      align-items: flex-start;
-      .NameInput {
-        width: 100%;
-        height: 40px;
-        border-bottom: 1px solid #ffffff;
-        color: #ffffff;
-        letter-spacing: 0px;
-        font-size: 20px;
-        line-height: 24px;
-        padding: 0;
-        font-weight: 400;
-        margin-top: 44px;
+      gap: 24px;
 
-        ::placeholder {
-          color: "#655095";
-        }
-      }
-
-      .ScreenSizes {
-        display: flex;
-        align-items: center;
-        gap: 18px;
-        margin-top: 44px;
-      }
-
-      .HandelPart {
+      .LeftSideSetting {
+        height: 100%;
         display: flex;
         flex-direction: column;
-        gap: 45px;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 127px;
+        .NameInput {
+          width: 100%;
+          height: 40px;
+          border-bottom: 1px solid #ffffff;
+          color: #ffffff;
+          letter-spacing: 0px;
+          font-size: 20px;
+          line-height: 24px;
+          padding: 0;
+          font-weight: 400;
 
-        .SettingAllSide {
+          ::placeholder {
+            color: "#655095";
+          }
+        }
+
+        .ScreenSizes {
           display: flex;
           align-items: center;
-          gap: 16px;
+          gap: 18px;
+          margin-top: 44px;
 
-          .ColorPicker {
-            margin-left: 15px;
-            cursor: pointer;
+          .BoxRatio {
+            display: flex;
+            align-items: flex-end;
+            gap: 8px;
+            margin-left: 8px;
             input {
-              padding: 0;
-              width: 31px;
-              height: 29px;
-            }
-            &::after {
-              display: none;
-            }
-            &::before {
-              display: none;
+              border-bottom: 1px solid #fff;
+              color: #fff;
+              width: 79px;
+              font-size: 20px;
+              line-height: 24px;
+              height: 24px;
             }
           }
+        }
 
-          .Select {
-            background-color: #1d1822;
-            color: "#FFFFFF";
-            min-width: 128px;
-            min-height: 34px;
-            margin-left: 30px;
+        .HandelPart {
+          display: flex;
+          flex-direction: column;
+          gap: 45px;
+
+          .SettingAllSide {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+
+            .ColorPicker {
+              margin-left: 15px;
+              cursor: pointer;
+              input {
+                padding: 0;
+                width: 31px;
+                height: 29px;
+              }
+              &::after {
+                display: none;
+              }
+              &::before {
+                display: none;
+              }
+            }
+
+            .Select {
+              background-color: #1d1822;
+              color: "#FFFFFF";
+              min-width: 128px;
+              min-height: 34px;
+              margin-left: 30px;
+            }
           }
         }
       }
-    }
 
-    .RightSideSetting {
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      align-items: center;
-      padding-top: 23px;
-      .GenerateButton {
-        border: 1px solid #ffffff;
-        border-radius: 22px;
-        color: #ffffff;
-        letter-spacing: 0px;
-        font-size: 20px;
-        line-height: 24px;
-        padding: 4px 12px;
-        font-weight: 400;
-        margin-top: 44px;
-        &:hover {
-          background: #d2beff 0% 0% no-repeat padding-box;
-          color: #000000;
-        }
+      .RightSideSetting {
+        width: auto;
+        height: auto;
       }
     }
   }
