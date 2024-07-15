@@ -45,12 +45,12 @@ export default function Home() {
               <SignUpForm setActiveTab={setActiveTab} />
             )}
           </div>
-          {activetab === "login" && <LoginForm />}
-          {activetab === "signup" && <SignUpForm />}
+          {/* {activetab === "login" && <LoginForm />}
+          {activetab === "signup" && <SignUpForm />} */}
         </div>
-        <FileDetailsModel />
-        <CustomVideoPlayer />
       </div>
+      {/* <FileDetailsModel /> */}
+      <CustomVideoPlayer />
     </main>
   );
 }
